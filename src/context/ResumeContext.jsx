@@ -1,9 +1,5 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
-import { 
-  analyzeResume, 
-  extractResumeInfo, 
-  generateJobRecommendations 
-} from '@services/aiService';
+import { analyzeResume, extractResumeInfo, generateJobRecommendations } from '@services/aiService';
 
 // Create context
 const ResumeContext = createContext();
@@ -27,31 +23,34 @@ export const ResumeProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   // Function to analyze the resume
-  const analyzeResumeText = useCallback(async (text) => {
+  const analyzeResumeText = useCallback(async text => {
     if (!text) return;
-    
+    console.log('Text', text);
+
     setResumeText(text);
     setIsAnalyzing(true);
     setError(null);
-    
+
     try {
       // Run analysis in parallel
       const [analysisResult, extractedInfoResult] = await Promise.all([
         analyzeResume(text),
-        extractResumeInfo(text)
+        extractResumeInfo(text),
       ]);
-      
+
       setAnalysis(analysisResult);
       setExtractedInfo(extractedInfoResult);
-      
+
+      console.log('Analysis Result', analysisResult);
+
       // Generate job recommendations based on extracted info
       const recommendations = await generateJobRecommendations(extractedInfoResult);
       setJobRecommendations(recommendations);
-      
+
       return {
         analysis: analysisResult,
         extractedInfo: extractedInfoResult,
-        jobRecommendations: recommendations
+        jobRecommendations: recommendations,
       };
     } catch (err) {
       setError(err.message || 'Failed to analyze resume');
@@ -80,14 +79,10 @@ export const ResumeProvider = ({ children }) => {
     isAnalyzing,
     error,
     analyzeResumeText,
-    resetAnalysis
+    resetAnalysis,
   };
 
-  return (
-    <ResumeContext.Provider value={value}>
-      {children}
-    </ResumeContext.Provider>
-  );
+  return <ResumeContext.Provider value={value}>{children}</ResumeContext.Provider>;
 };
 
 export default ResumeContext;

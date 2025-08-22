@@ -5,14 +5,14 @@ const openRouterAPI = axios.create({
   baseURL: 'https://openrouter.ai/api/v1',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
+    Authorization: `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
   },
 });
 
-export const analyzeResume = async (resumeText) => {
+export const analyzeResume = async resumeText => {
   try {
     const response = await openRouterAPI.post('/chat/completions', {
-      model: 'openai/gpt-4o', // Using GPT-4o via OpenRouter
+      model: 'deepseek/deepseek-r1:free', // Using GPT-4o via OpenRouter
       messages: [
         {
           role: 'system',
@@ -30,17 +30,17 @@ export const analyzeResume = async (resumeText) => {
           10. Suggestions for Improvement
           
           Format your response with clear headings for each section. Be specific with examples from the resume.
-          Provide actionable feedback that can help improve the resume immediately.`
+          Provide actionable feedback that can help improve the resume immediately.`,
         },
         {
           role: 'user',
-          content: resumeText
-        }
+          content: resumeText,
+        },
       ],
       temperature: 0.7,
       max_tokens: 2500,
     });
-    
+
     return response.data.choices[0].message.content;
   } catch (error) {
     console.error('Error analyzing resume:', error);
@@ -48,10 +48,10 @@ export const analyzeResume = async (resumeText) => {
   }
 };
 
-export const extractResumeInfo = async (resumeText) => {
+export const extractResumeInfo = async resumeText => {
   try {
     const response = await openRouterAPI.post('/chat/completions', {
-      model: 'openai/gpt-4o', // Using GPT-4o via OpenRouter
+      model: 'deepseek/deepseek-r1:free', // Using GPT-4o via OpenRouter
       messages: [
         {
           role: 'system',
@@ -96,18 +96,18 @@ export const extractResumeInfo = async (resumeText) => {
             "certifications": []
           }
           
-          Return only the JSON with no additional text.`
+          Return only the JSON with no additional text.`,
         },
         {
           role: 'user',
-          content: resumeText
-        }
+          content: resumeText,
+        },
       ],
       temperature: 0.1,
       max_tokens: 2000,
-      response_format: { type: "json_object" }
+      response_format: { type: 'json_object' },
     });
-    
+
     return JSON.parse(response.data.choices[0].message.content);
   } catch (error) {
     console.error('Error extracting resume info:', error);
@@ -115,10 +115,10 @@ export const extractResumeInfo = async (resumeText) => {
   }
 };
 
-export const generateJobRecommendations = async (resumeInfo) => {
+export const generateJobRecommendations = async resumeInfo => {
   try {
     const response = await openRouterAPI.post('/chat/completions', {
-      model: 'openai/gpt-4o', // Using GPT-4o via OpenRouter
+      model: 'deepseek/deepseek-r1:free', // Using GPT-4o via OpenRouter
       messages: [
         {
           role: 'system',
@@ -148,18 +148,18 @@ export const generateJobRecommendations = async (resumeInfo) => {
                 "nextSteps": []
               }
             ]
-          }`
+          }`,
         },
         {
           role: 'user',
-          content: JSON.stringify(resumeInfo)
-        }
+          content: JSON.stringify(resumeInfo),
+        },
       ],
       temperature: 0.7,
       max_tokens: 2000,
-      response_format: { type: "json_object" }
+      response_format: { type: 'json_object' },
     });
-    
+
     return JSON.parse(response.data.choices[0].message.content);
   } catch (error) {
     console.error('Error generating job recommendations:', error);
@@ -170,5 +170,5 @@ export const generateJobRecommendations = async (resumeInfo) => {
 export default {
   analyzeResume,
   extractResumeInfo,
-  generateJobRecommendations
+  generateJobRecommendations,
 };
