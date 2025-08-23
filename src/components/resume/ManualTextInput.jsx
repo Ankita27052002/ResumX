@@ -22,25 +22,22 @@ const ManualTextInput = ({ onTextSubmit, defaultText = '' }) => {
   };
 
   return (
-    <div className="mt-6 border border-gray-300 rounded-lg p-4">
-      <h3 className="text-lg font-medium text-gray-900 mb-2">
-        Manually Enter Resume Text
-      </h3>
-      <p className="text-sm text-gray-600 mb-4">
-        If file upload is not working, you can paste your resume text directly here.
-      </p>
+    <div className="mt-8 bg-white/90 border border-gray-200 rounded-2xl p-8 shadow-xl max-w-xl mx-auto">
+      <h3 className="text-xl font-bold text-gray-900 mb-3">Manually Enter Resume Text</h3>
+      <p className="text-base text-gray-600 mb-6">If file upload is not working, you can paste your resume text directly here.</p>
       <form onSubmit={handleSubmit}>
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Paste your resume text here..."
-          className="w-full h-40 p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+          className="w-full h-40 p-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-base resize-none"
           required
         />
-        <div className="flex justify-end mt-3">
+        <div className="flex justify-end mt-5">
           <Button 
             type="submit"
             variant="primary"
+            className="px-8 py-2 text-lg shadow-md"
             disabled={isSubmitting || !text.trim()}
           >
             {isSubmitting ? 'Processing...' : 'Use This Text'}

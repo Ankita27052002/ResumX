@@ -1,3 +1,14 @@
+  // Handles drag events for drag-and-drop file upload
+  const handleDrag = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === 'dragenter' || e.type === 'dragover') {
+      setDragActive(true);
+    } else if (e.type === 'dragleave') {
+      setDragActive(false);
+    }
+  };
+
 import React, { useState, useRef } from 'react';
 import { useResumeContext } from '@context/ResumeContext';
 
@@ -5,17 +16,6 @@ const FileUploader = () => {
   const fileInputRef = useRef(null);
   const [dragActive, setDragActive] = useState(false);
   const { analyzeResumeFile, isAnalyzing, processingStage, error } = useResumeContext();
-
-  const handleDrag = e => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (e.type === 'dragenter' || e.type === 'dragover') {
-      setDragActive(true);
-    } else if (e.type === 'dragleave') {
-      setDragActive(false);
-    }
-  };
 
   const handleDrop = async e => {
     e.preventDefault();
@@ -39,10 +39,10 @@ const FileUploader = () => {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto">
+    <div className="w-full max-w-xl mx-auto">
       <div
-        className={`p-6 border-2 ${dragActive ? 'border-blue-600 bg-blue-50' : 'border-dashed border-gray-300'} 
-                    rounded-lg text-center cursor-pointer transition-all duration-200 hover:bg-gray-50`}
+        className={`p-8 md:p-10 border-2 ${dragActive ? 'border-blue-600 bg-blue-50/80' : 'border-dashed border-gray-200 bg-white/90'} 
+                    rounded-2xl text-center cursor-pointer transition-all duration-200 shadow-xl hover:bg-gray-50/80 border-spacing-2`}
         onDragEnter={handleDrag}
         onDragLeave={handleDrag}
         onDragOver={handleDrag}
@@ -57,11 +57,10 @@ const FileUploader = () => {
           className="hidden"
           disabled={isAnalyzing}
         />
-
         {isAnalyzing ? (
           <div className="text-center">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500 mb-2"></div>
-            <p className="text-gray-700 font-medium">
+            <div className="inline-block animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500 mb-3"></div>
+            <p className="text-gray-700 font-semibold text-base">
               {processingStage === 'extracting' && 'Extracting text from your resume...'}
               {processingStage === 'analyzing' && 'Analyzing your resume...'}
               {processingStage === 'generating' && 'Generating recommendations...'}
@@ -72,7 +71,7 @@ const FileUploader = () => {
           <>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="mx-auto h-12 w-12 text-gray-400"
+              className="mx-auto h-14 w-14 text-indigo-400"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -84,17 +83,17 @@ const FileUploader = () => {
                 d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
               />
             </svg>
-            <p className="mt-2 text-lg font-medium text-gray-700">
-              Drag and drop your resume or click to browse
+            <p className="mt-4 text-lg font-semibold text-gray-800">
+              Drag and drop your resume or <span className="text-indigo-600 underline">click to browse</span>
             </p>
-            <p className="mt-1 text-sm text-gray-500">Supports PDF and Text files</p>
+            <p className="mt-2 text-sm text-gray-500">Supports PDF and Text files</p>
           </>
         )}
       </div>
 
       {error && (
-        <div className="mt-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded">
-          <p className="font-medium">Error:</p>
+        <div className="mt-5 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl shadow">
+          <p className="font-semibold">Error:</p>
           <p>{error}</p>
         </div>
       )}
@@ -102,38 +101,6 @@ const FileUploader = () => {
   );
 };
 
-export default FileUploader;
-
-// import React, { useRef, useState } from 'react';
-// import useResumeUpload from '@hooks/useResumeUpload';
-// import Button from '@components/common/Button';
-// import ManualTextInput from './ManualTextInput';
-// import PDFParsingFallback from './PDFParsingFallback';
-// import PDFErrorHelper from './PDFErrorHelper';
-
-// const FileUploader = ({ onFileTextReady }) => {
-//   const fileInputRef = useRef(null);
-//   const [showManualInput, setShowManualInput] = useState(false);
-//   const {
-//     fileName,
-//     fileText,
-//     isLoading,
-//     error,
-//     fileType,
-//     handleFileChange,
-//     reset
-//   } = useResumeUpload();
-
-//   // When file text is ready, notify parent component
-//   React.useEffect(() => {
-//     if (fileText && !isLoading) {
-//       onFileTextReady(fileText);
-//     }
-//   }, [fileText, isLoading, onFileTextReady]);
-
-//   const handleBrowseClick = () => {
-//     fileInputRef.current.click();
-//   };
 
 //   const handleReset = () => {
 //     reset();
@@ -305,6 +272,5 @@ export default FileUploader;
 //       )}
 //     </div>
 //   );
-// };
 
-// export default FileUploader;
+export default FileUploader;
