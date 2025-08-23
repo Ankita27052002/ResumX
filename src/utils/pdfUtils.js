@@ -1,70 +1,106 @@
-import { extractTextFromPDF } from './fileParser';
+import * as pdfjs from 'pdfjs-dist';
+/**
+ * Extract text from a PDF file
+ * @param {File|Blob|ArrayBuffer} pdfFile - The PDF file to extract text from
+ * @returns {Promise<string>} - The extracted text
+ */
+export const extractTextFromPDF = async pdfFile => {
+  try {
+    let pdfData;
+
+    if (pdfFile instanceof File || pdfFile instanceof Blob) {
+      // Convert the file to ArrayBuffer
+      pdfData = await pdfFile.arrayBuffer();
+    } else if (pdfFile instanceof ArrayBuffer) {
+      pdfData = pdfFile;
+    } else if (typeof pdfFile === 'string') {
+      // Handle base64 string
+      try {
+        const binary = atob(pdfFile.replace(/^data:application\/pdf;base64,/, ''));
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) {
+          bytes[i] = binary.charCodeAt(i);
+        }
+        pdfData = bytes.buffer;
+      } catch (error) {
+        console.error('Error converting base64 to ArrayBuffer:', error);
+        return pdfFile; // Return the original string if it's not a valid base64
+      }
+    } else {
+      throw new Error('Unsupported PDF format');
+    }
+
+    // Enable the built-in worker fallbacks
+    const loadingTask = pdfjs.getDocument({
+      data: pdfData,
+      useWorkerFetch: false, // Prevents worker from making network requests
+      isEvalSupported: false, // Prevents eval which may be blocked in some browsers
+      disableFontFace: true, // Prevents font loading issues
+    });
+
+    const pdf = await loadingTask.promise;
+    let extractedText = '';
+
+    // Extract text from each page
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const textContent = await page.getTextContent();
+      const pageText = textContent.items.map(item => item.str).join(' ');
+      extractedText += pageText + '\n\n';
+    }
+
+    if (extractedText.trim().length === 0) {
+      throw new Error(
+        'No text could be extracted from this PDF. It may be a scanned document or image-based PDF.'
+      );
+    }
+
+    return extractedText.trim();
+  } catch (error) {
+    console.error('Error extracting text from PDF:', error);
+    throw new Error(
+      'Failed to extract text from the PDF file. Please try again or use a different file format.'
+    );
+  }
+};
 
 /**
- * A utility for handling various PDF specific operations
- * that might be required for the resume analyzer
+ * Check if a file is a valid PDF
+ * @param {File} file - The file to check
+ * @returns {boolean} - Whether the file is a valid PDF
  */
-export class PDFUtils {
-  /**
-   * Detects if a PDF might be scanned or image-based
-   * by checking if text extraction yields little to no text
-   * 
-   * @param {ArrayBuffer} pdfData - The PDF data as an ArrayBuffer
-   * @returns {Promise<boolean>} - True if the PDF appears to be scanned
-   */
-  static async isScannedPDF(pdfData) {
-    // Simple heuristic: If we extract very little text relative to file size,
-    // it's probably a scanned document
-    try {
-      const textDensity = await this.calculateTextDensity(pdfData);
-      return textDensity < 0.01; // Threshold: 1% text density
-    } catch (error) {
-      console.error('Error detecting scanned PDF:', error);
-      return false;
-    }
-  }
-  
-  /**
-   * Calculate the "text density" of a PDF
-   * (characters of text / bytes of file)
-   * 
-   * @param {ArrayBuffer} pdfData - The PDF data
-   * @returns {Promise<number>} - The text density ratio
-   */
-  static async calculateTextDensity(pdfData) {
-    // Create a blob from the array buffer
-    const blob = new Blob([pdfData], { type: 'application/pdf' });
-    
-    // Create a File object which can be passed to extractTextFromPDF
-    const file = new File([blob], 'temp.pdf', { type: 'application/pdf' });
-    
-    try {
-      const extractedText = await extractTextFromPDF(file);
-      const textLength = extractedText.length;
-      const fileSize = pdfData.byteLength;
-      
-      return textLength / fileSize;
-    } catch (error) {
-      console.error('Error calculating text density:', error);
-      return 0;
-    }
-  }
-  
-  /**
-   * Provides guidance for handling problematic PDFs
-   * 
-   * @returns {string} - Guidance text
-   */
-  static getScannedPDFGuidance() {
-    return `
-      Your PDF appears to be scanned or image-based, which makes text extraction difficult.
-      For better results, try:
-      
-      1. Using a text-based PDF rather than a scanned document
-      2. Converting your document to text format (.txt)
-      3. Copying and pasting the text directly instead of uploading a file
-    `;
-  }
-}
+export const isValidPDF = file => {
+  return file && file.type === 'application/pdf';
+};
 
-export default PDFUtils;
+/**
+ * Clean and validate extracted text
+ * @param {string} text - The text to clean
+ * @returns {string} - The cleaned text
+ */
+export const cleanResumeText = text => {
+  if (!text) return '';
+
+  // Check if the text contains PDF binary markers
+  if (
+    text.includes('%PDF-') ||
+    text.includes('endstream') ||
+    text.includes('endobj') ||
+    text.includes('FlateDecode')
+  ) {
+    throw new Error('The text contains raw PDF binary data. Please use proper text extraction.');
+  }
+
+  // Remove any control characters and normalize whitespace
+  const cleaned = text
+    .replace(/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  // Validate the cleaned text
+  if (cleaned.length < 50) {
+    throw new Error('The extracted text is too short to be a valid resume.');
+  }
+
+  return cleaned;
+};

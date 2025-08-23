@@ -7,13 +7,8 @@ const USE_LOCAL_WORKER = false; // Set to false to use CDN directly
 // Function to set up local worker via CDN with our exact version
 function setupLocalWorker() {
   try {
-    console.log('Setting up PDF.js worker with specific version');
-    
-    // Use the CDN path but with the exact version we have installed
-    const workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`;
+    const workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
     GlobalWorkerOptions.workerSrc = workerSrc;
-    
-    console.log('PDF.js worker set up successfully with version:', pdfjsLib.version);
     return true;
   } catch (error) {
     console.error('Error setting up PDF.js worker:', error);
@@ -24,7 +19,7 @@ function setupLocalWorker() {
 function setupCdnWorker() {
   try {
     console.log('Using CDN PDF.js worker with version:', pdfjsLib.version);
-    const pdfWorkerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`;
+    const pdfWorkerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
     GlobalWorkerOptions.workerSrc = pdfWorkerSrc;
     return true;
   } catch (error) {
