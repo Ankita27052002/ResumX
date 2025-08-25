@@ -1,64 +1,146 @@
 @import "tailwindcss";
-@import "tailwindcss/preflight";
-@import "tailwindcss/utilities";
 
-:root {
-  --primary-font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-html {
-  font-family: var(--primary-font);
+.header-logo{
+  margin-left: 20px;
 }
 
-body {
-  background-color: #f9fafb; /* bg-gray-50 */
-  color: #111827; /* text-gray-900 */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.nav-menu{
+  margin-right: 20px;
 }
 
-#root {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+/* Fix spacing between header and main content */
+.main-content-spacing {
+  margin-top: 40px !important;
+  padding-top: 20px !important;
 }
 
-/* Custom prose styles */
-.prose h1 {
-  font-size: 1.5rem; /* text-2xl */
-  font-weight: 700; /* font-bold */
-  color: #111827; /* text-gray-900 */
-  margin-bottom: 1rem; /* mb-4 */
+/* Add spacing between hero section and features section */
+.features-section-spacing {
+  margin-top: 60px !important;
+  padding-top: 20px !important;
 }
 
-.prose h2 {
-  font-size: 1.25rem; /* text-xl */
-  font-weight: 600; /* font-semibold */
-  color: #111827; /* text-gray-900 */
-  margin-top: 2rem; /* mt-8 */
-  margin-bottom: 0.75rem; /* mb-3 */
+
+/* Add bottom padding to hero section */
+.hero-section-padding {
+  padding-bottom: 40px !important;
 }
 
-.prose h3 {
-  font-size: 1.125rem; /* text-lg */
-  font-weight: 500; /* font-medium */
-  color: #111827; /* text-gray-900 */
-  margin-top: 1.5rem; /* mt-6 */
-  margin-bottom: 0.5rem; /* mb-2 */
+/* Add spacing between hero content and buttons */
+.hero-content-spacing {
+  margin-bottom: 40px !important;
 }
 
-.prose p {
-  color: #374151; /* text-gray-700 */
-  margin-bottom: 1rem; /* mb-4 */
+/* Professional hero button styling */
+.hero-btn-primary {
+  background: linear-gradient(135deg, #4f46e5, #3b82f6) !important;
+  color: white !important;
+  padding: 16px 32px !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25) !important;
+  transition: all 0.3s ease !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
 }
 
-.prose ul {
-  list-style-type: disc;
-  padding-left: 1.25rem; /* pl-5 */
-  margin-bottom: 1rem; /* mb-4 */
-  color: #374151; /* text-gray-700 */
+.hero-btn-primary:hover {
+  background: linear-gradient(135deg, #3730a3, #2563eb) !important;
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.35) !important;
+  transform: translateY(-2px) !important;
 }
 
-.prose li {
-  margin-bottom: 0.5rem; /* mb-2 */
+.hero-btn-secondary {
+  background: white !important;
+  color: #4f46e5 !important;
+  padding: 16px 32px !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  border: 2px solid #4f46e5 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+  transition: all 0.3s ease !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+}
+
+.hero-btn-secondary:hover {
+  background: #f8fafc !important;
+  border-color: #3730a3 !important;
+  color: #3730a3 !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Center alignment for Why Choose ResumX section */
+.center-section {
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.center-section h2,
+.center-section h3,
+.center-section p {
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.center-section .grid {
+  justify-items: center !important;
+  align-items: center !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+.center-section div {
+  text-align: center !important;
+}
+
+/* Professional spacing for Why Choose ResumX section */
+.section-title-spacing {
+  margin-bottom: 16px !important;
+}
+
+.section-subtitle-spacing {
+  margin-bottom: 32px !important;
+  margin-top: 8px !important;
+}
+
+.cards-container-spacing {
+  margin-top: 32px !important;
+  gap: 24px !important;
+  align-items: stretch !important;
+}
+
+.card-content-spacing {
+  padding: 24px !important;
+  height: 100% !important;
+  min-height: 280px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+}
+
+.card-icon-spacing {
+  margin-bottom: 16px !important;
+}
+
+.card-title-spacing {
+  margin-bottom: 12px !important;
+  margin-top: 4px !important;
+}
+
+.card-text-spacing {
+  line-height: 1.5 !important;
 }

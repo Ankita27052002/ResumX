@@ -5,280 +5,153 @@ import Button from '@components/common/Button';
 const HomePage = () => {
   return (
     <Layout>
-      <main className="max-w-7xl mx-auto px-4 sm:px-8">
-        {/* Hero Section */}
-        <section className="flex flex-col items-center justify-center py-20">
-          <div className="w-full max-w-3xl bg-white/95 rounded-3xl shadow-2xl px-10 py-16 flex flex-col items-center text-center border border-gray-100">
-            <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-4 leading-tight">
-              Optimize your resume with <span className="block text-indigo-600">AI-powered insights</span>
-            </h1>
-            <p className="mt-4 text-2xl text-gray-600 mb-10">
-              ResumX uses advanced AI to analyze your resume, provide personalized feedback, and help you stand out to employers and applicant tracking systems.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
-              <Button 
-                variant="primary" 
-                size="large"
-                className="w-full sm:w-auto px-8 py-3 text-lg shadow"
-                onClick={() => window.location.href = '/analyze'}
-              >
-                Analyze My Resume
-              </Button>
-              <Button 
-                variant="secondary"
-                size="large"
-                className="w-full sm:w-auto px-8 py-3 text-lg shadow"
-                onClick={() => window.location.href = '/about'}
-              >
-                Learn More
-              </Button>
+      <div className="w-full main-content-spacing">
+        {/* Hero Section - Full Width */}
+        <section className="w-full bg-gradient-to-br from-indigo-50 via-white to-blue-50 py-20 lg:py-28">
+          <div className="w-full px-6 sm:px-8 lg:px-16 xl:px-24 text-center flex flex-col items-center">
+            <div className="bg-white/80 backdrop-blur-sm p-12 lg:p-16 xl:p-20 border border-white/50 w-full max-w-none flex flex-col items-center">
+              <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-6 leading-tight text-center">
+                Transform Your Resume with <span className="text-indigo-600">AI Intelligence</span>
+              </h1>
+              <p className="text-lg lg:text-xl text-gray-600 leading-relaxed font-medium text-center w-full max-w-4xl hero-content-spacing">
+                Get instant, professional feedback to make your resume stand out. Our AI analyzes content, structure, and keywords to help you land your dream job.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center w-full">
+                <Button 
+                  variant="primary" 
+                  size="large"
+                  className="hero-btn-primary"
+                  onClick={() => window.location.href = '/analyze'}
+                >
+                  Start Analysis
+                </Button>
+                <Button 
+                  variant="secondary"
+                  size="large"
+                  className="hero-btn-secondary"
+                  onClick={() => window.location.href = '/about'}
+                >
+                  Learn More
+                </Button>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Features Section */}
-        <section className="py-20">
-          <div className="text-center mb-14">
-            <h2 className="text-4xl font-extrabold text-gray-900 mb-4">How ResumX Helps You</h2>
-            <p className="max-w-2xl text-xl text-gray-500 mx-auto">
-              Our AI-powered platform provides comprehensive resume analysis and optimization.
-            </p>
-          </div>
-          <div className="flex flex-col md:flex-row gap-10 justify-center items-stretch">
-            <div className="flex-1 bg-white rounded-2xl shadow-lg flex flex-col items-center text-center border border-gray-100 px-10 py-12 min-w-[260px]">
-              <div className="bg-indigo-100 p-4 rounded-full mb-4">
-                <svg className="h-8 w-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        {/* Features Section - Full Width */}
+        <section className="w-full py-16 lg:py-20 bg-white features-section-spacing center-section">
+          <div className="w-full px-6 sm:px-8 lg:px-16 xl:px-24 center-section">
+            <div className="center-section">
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 center-section section-title-spacing">Why Choose ResumX?</h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto center-section section-subtitle-spacing">
+                Professional-grade analysis powered by cutting-edge AI technology.
+              </p>
+            </div>
+            <div className="grid md:grid-cols-3 max-w-7xl mx-auto center-section cards-container-spacing">
+            <div className="bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 center-section card-content-spacing">
+              <div className="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto card-icon-spacing">
+                <svg className="h-8 w-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="mt-2 text-xl font-semibold text-gray-900">ATS Optimization</h3>
-              <p className="mt-3 text-base text-gray-500">
-                Ensure your resume passes through Applicant Tracking Systems with our AI-powered keyword analysis.
+              <h3 className="text-xl font-semibold text-gray-900 center-section card-title-spacing">ATS Optimization</h3>
+              <p className="text-gray-600 center-section card-text-spacing">
+                Ensure your resume passes Applicant Tracking Systems with smart keyword analysis and formatting tips.
               </p>
             </div>
-            <div className="flex-1 bg-white rounded-2xl shadow-lg flex flex-col items-center text-center border border-gray-100 px-10 py-12 min-w-[260px]">
-              <div className="bg-indigo-100 p-4 rounded-full mb-4">
-                <svg className="h-8 w-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <div className="bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 center-section card-content-spacing">
+              <div className="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto card-icon-spacing">
+                <svg className="h-8 w-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="mt-2 text-xl font-semibold text-gray-900">Content Improvement</h3>
-              <p className="mt-3 text-base text-gray-500">
-                Receive detailed feedback on how to strengthen your resume's content, structure, and impact.
+              <h3 className="text-xl font-semibold text-gray-900 center-section card-title-spacing">Content Enhancement</h3>
+              <p className="text-gray-600 center-section card-text-spacing">
+                Get detailed feedback on content structure, impact statements, and professional presentation.
               </p>
             </div>
-            <div className="flex-1 bg-white rounded-2xl shadow-lg flex flex-col items-center text-center border border-gray-100 px-10 py-12 min-w-[260px]">
-              <div className="bg-indigo-100 p-4 rounded-full mb-4">
-                <svg className="h-8 w-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <div className="bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 center-section card-content-spacing">
+              <div className="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto card-icon-spacing">
+                <svg className="h-8 w-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
-              <h3 className="mt-2 text-xl font-semibold text-gray-900">Career Recommendations</h3>
-              <p className="mt-3 text-base text-gray-500">
-                Get personalized job recommendations and career path insights based on your skills and experience.
+              <h3 className="text-xl font-semibold text-gray-900 center-section card-title-spacing">Career Insights</h3>
+              <p className="text-gray-600 center-section card-text-spacing">
+                Discover personalized job recommendations and career opportunities based on your experience.
               </p>
+            </div>
+          </div>
+          </div>
+        </section>
+
+        {/* How It Works Section - Full Width */}
+        <section className="w-full py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+          <div className="w-full px-6 sm:px-8 lg:px-16 xl:px-24">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">How It Works</h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Four simple steps to a better resume and stronger job applications.
+              </p>
+            </div>
+            <div className="max-w-4xl mx-auto">
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="flex items-start space-x-4">
+                  <span className="flex-shrink-0 w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white text-lg font-bold">1</span>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Upload Resume</h3>
+                    <p className="text-gray-600">Upload your resume in PDF, DOCX, or TXT format for instant analysis.</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <span className="flex-shrink-0 w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white text-lg font-bold">2</span>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">AI Analysis</h3>
+                    <p className="text-gray-600">Our AI analyzes content, structure, keywords, and overall effectiveness.</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <span className="flex-shrink-0 w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white text-lg font-bold">3</span>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Get Feedback</h3>
+                    <p className="text-gray-600">Receive comprehensive feedback with specific improvement suggestions.</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <span className="flex-shrink-0 w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white text-lg font-bold">4</span>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Apply & Succeed</h3>
+                    <p className="text-gray-600">Use insights to improve your resume and boost your job search success.</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* How It Works Section */}
-        <section className="py-20 bg-gray-50 rounded-3xl shadow-inner mb-16">
-          <div className="text-center mb-14">
-            <h2 className="text-4xl font-extrabold text-gray-900 mb-4">How It Works</h2>
-            <p className="max-w-2xl text-xl text-gray-500 mx-auto">
-              Simple steps to improve your resume and boost your job search.
-            </p>
-          </div>
-          <div className="max-w-3xl mx-auto">
-            <ol className="space-y-0 relative">
-              <li className="flex items-start mb-10">
-                <div className="flex-shrink-0">
-                  <span className="flex items-center justify-center w-10 h-10 bg-indigo-600 rounded-full text-white text-xl font-bold shadow mr-6">1</span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-1">Upload your resume</h3>
-                  <p className="text-base text-gray-500">
-                    Upload your resume in PDF, DOCX, or TXT format. Our system will extract the text for analysis.
-                  </p>
-                </div>
-              </li>
-              <li className="flex items-start mb-10">
-                <div className="flex-shrink-0">
-                  <span className="flex items-center justify-center w-10 h-10 bg-indigo-600 rounded-full text-white text-xl font-bold shadow mr-6">2</span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-1">AI-powered analysis</h3>
-                  <p className="text-base text-gray-500">
-                    Our AI engine analyzes your resume's content, structure, keywords, and overall effectiveness.
-                  </p>
-                </div>
-              </li>
-              <li className="flex items-start mb-10">
-                <div className="flex-shrink-0">
-                  <span className="flex items-center justify-center w-10 h-10 bg-indigo-600 rounded-full text-white text-xl font-bold shadow mr-6">3</span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-1">Receive detailed feedback</h3>
-                  <p className="text-base text-gray-500">
-                    Get comprehensive feedback and specific suggestions to improve your resume's impact.
-                  </p>
-                </div>
-              </li>
-              <li className="flex items-start">
-                <div className="flex-shrink-0">
-                  <span className="flex items-center justify-center w-10 h-10 bg-indigo-600 rounded-full text-white text-xl font-bold shadow mr-6">4</span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-1">Explore career insights</h3>
-                  <p className="text-base text-gray-500">
-                    Discover job recommendations, suitable industries, and potential career paths based on your experience.
-                  </p>
-                </div>
-              </li>
-            </ol>
+        {/* CTA Section - Full Width */}
+        <section className="w-full py-16 lg:py-20 text-center bg-white">
+          <div className="w-full px-6 sm:px-8 lg:px-16 xl:px-24">
+            <div className="max-w-3xl mx-auto">
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Ready to Get Started?</h2>
+              <p className="text-lg text-gray-600 mb-8">
+                Join thousands of professionals who have improved their resumes with ResumX.
+              </p>
+              <Button 
+                variant="primary" 
+                size="large"
+                className="bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-4 rounded-lg font-semibold text-lg shadow-lg transition-all duration-200 transform hover:scale-105"
+                onClick={() => window.location.href = '/analyze'}
+              >
+                Start Your Analysis
+              </Button>
+            </div>
           </div>
         </section>
-
-        {/* CTA Section */}
-        <section className="py-20 text-center">
-          <h2 className="text-4xl font-extrabold text-gray-900 mb-4">Ready to improve your resume?</h2>
-          <p className="max-w-2xl text-xl text-gray-500 mx-auto mb-8">
-            Get started with ResumX today and take your job search to the next level.
-          </p>
-          <div className="flex justify-center">
-            <Button 
-              variant="primary" 
-              size="large"
-              className="px-10 py-3 text-lg shadow-lg"
-              onClick={() => window.location.href = '/analyze'}
-            >
-              Analyze My Resume Now
-            </Button>
-          </div>
-        </section>
-      </main>
+      </div>
     </Layout>
   );
 };
 
-                      <section className="py-20">
-                        <div className="text-center mb-14">
-                          <h2 className="text-4xl font-extrabold text-gray-900 mb-4">How ResumX Helps You</h2>
-                          <p className="max-w-2xl text-xl text-gray-500 mx-auto">
-                            Our AI-powered platform provides comprehensive resume analysis and optimization.
-                          </p>
-                        </div>
-                        <div className="flex flex-col md:flex-row gap-10 justify-center items-stretch">
-                          <div className="flex-1 bg-white rounded-2xl shadow-lg flex flex-col items-center text-center border border-gray-100 px-10 py-12 min-w-[260px]">
-                            <div className="bg-indigo-100 p-4 rounded-full mb-4">
-                              <svg className="h-8 w-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                              </svg>
-                            </div>
-                            <h3 className="mt-2 text-xl font-semibold text-gray-900">ATS Optimization</h3>
-                            <p className="mt-3 text-base text-gray-500">
-                              Ensure your resume passes through Applicant Tracking Systems with our AI-powered keyword analysis.
-                            </p>
-                          </div>
-                          <div className="flex-1 bg-white rounded-2xl shadow-lg flex flex-col items-center text-center border border-gray-100 px-10 py-12 min-w-[260px]">
-                            <div className="bg-indigo-100 p-4 rounded-full mb-4">
-                              <svg className="h-8 w-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                              </svg>
-                            </div>
-                            <h3 className="mt-2 text-xl font-semibold text-gray-900">Content Improvement</h3>
-                            <p className="mt-3 text-base text-gray-500">
-                              Receive detailed feedback on how to strengthen your resume's content, structure, and impact.
-                            </p>
-                          </div>
-                          <div className="flex-1 bg-white rounded-2xl shadow-lg flex flex-col items-center text-center border border-gray-100 px-10 py-12 min-w-[260px]">
-                            <div className="bg-indigo-100 p-4 rounded-full mb-4">
-                              <svg className="h-8 w-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                              </svg>
-                            </div>
-                            <h3 className="mt-2 text-xl font-semibold text-gray-900">Career Recommendations</h3>
-                            <p className="mt-3 text-base text-gray-500">
-                              Get personalized job recommendations and career path insights based on your skills and experience.
-                            </p>
-                          </div>
-                        </div>
-                      </section>
-
-                      {/* How It Works Section */}
-                      <section className="py-20 bg-gray-50 rounded-3xl shadow-inner mb-16">
-                        <div className="text-center mb-14">
-                          <h2 className="text-4xl font-extrabold text-gray-900 mb-4">How It Works</h2>
-                          <p className="max-w-2xl text-xl text-gray-500 mx-auto">
-                            Simple steps to improve your resume and boost your job search.
-                          </p>
-                        </div>
-                        <div className="max-w-3xl mx-auto">
-                          <ol className="space-y-0 relative">
-                            <li className="flex items-start mb-10">
-                              <div className="flex-shrink-0">
-                                <span className="flex items-center justify-center w-10 h-10 bg-indigo-600 rounded-full text-white text-xl font-bold shadow mr-6">1</span>
-                              </div>
-                              <div>
-                                <h3 className="text-lg font-semibold text-gray-900 mb-1">Upload your resume</h3>
-                                <p className="text-base text-gray-500">
-                                  Upload your resume in PDF, DOCX, or TXT format. Our system will extract the text for analysis.
-                                </p>
-                              </div>
-                            </li>
-                            <li className="flex items-start mb-10">
-                              <div className="flex-shrink-0">
-                                <span className="flex items-center justify-center w-10 h-10 bg-indigo-600 rounded-full text-white text-xl font-bold shadow mr-6">2</span>
-                              </div>
-                              <div>
-                                <h3 className="text-lg font-semibold text-gray-900 mb-1">AI-powered analysis</h3>
-                                <p className="text-base text-gray-500">
-                                  Our AI engine analyzes your resume's content, structure, keywords, and overall effectiveness.
-                                </p>
-                              </div>
-                            </li>
-                            <li className="flex items-start mb-10">
-                              <div className="flex-shrink-0">
-                                <span className="flex items-center justify-center w-10 h-10 bg-indigo-600 rounded-full text-white text-xl font-bold shadow mr-6">3</span>
-                              </div>
-                              <div>
-                                <h3 className="text-lg font-semibold text-gray-900 mb-1">Receive detailed feedback</h3>
-                                <p className="text-base text-gray-500">
-                                  Get comprehensive feedback and specific suggestions to improve your resume's impact.
-                                </p>
-                              </div>
-                            </li>
-                            <li className="flex items-start">
-                              <div className="flex-shrink-0">
-                                <span className="flex items-center justify-center w-10 h-10 bg-indigo-600 rounded-full text-white text-xl font-bold shadow mr-6">4</span>
-                              </div>
-                              <div>
-                                <h3 className="text-lg font-semibold text-gray-900 mb-1">Explore career insights</h3>
-                                <p className="text-base text-gray-500">
-                                  Discover job recommendations, suitable industries, and potential career paths based on your experience.
-                                </p>
-                              </div>
-                            </li>
-                          </ol>
-                        </div>
-                      </section>
-
-                      {/* CTA Section */}
-                      <section className="py-20 text-center">
-                        <h2 className="text-4xl font-extrabold text-gray-900 mb-4">Ready to improve your resume?</h2>
-                        <p className="max-w-2xl text-xl text-gray-500 mx-auto mb-8">
-                          Get started with ResumX today and take your job search to the next level.
-                        </p>
-                        <div className="flex justify-center">
-                          <Button 
-                            variant="primary" 
-                            size="large"
-                            className="px-10 py-3 text-lg shadow-lg"
-                            onClick={() => window.location.href = '/analyze'}
-                          >
-                            Analyze My Resume Now
-                          </Button>
-                        </div>
-                      </section>
 export default HomePage;
 
