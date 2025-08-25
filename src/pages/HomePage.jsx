@@ -39,7 +39,7 @@ const HomePage = () => {
         </section>
 
         {/* Features Section - Full Width */}
-        <section className="w-full py-16 lg:py-20 bg-white features-section-spacing center-section">
+        <section className="w-full py-16 lg:py-20 bg-white features-section-spacing center-section section-bottom-spacing">
           <div className="w-full px-6 sm:px-8 lg:px-16 xl:px-24 center-section">
             <div className="center-section">
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 center-section section-title-spacing">Why Choose ResumX?</h2>
@@ -86,61 +86,59 @@ const HomePage = () => {
         </section>
 
         {/* How It Works Section - Full Width */}
-        <section className="w-full py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+        <section className="w-full py-16 lg:py-20 bg-white section-top-spacing how-it-works-section section-bottom-spacing">
           <div className="w-full px-6 sm:px-8 lg:px-16 xl:px-24">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">How It Works</h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <div className="text-center">
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 how-it-works-title">How It Works</h2>
+              <p className="text-lg text-gray-600 mx-auto how-it-works-subtitle">
                 Four simple steps to a better resume and stronger job applications.
               </p>
             </div>
-            <div className="max-w-4xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-8">
-                <div className="flex items-start space-x-4">
-                  <span className="flex-shrink-0 w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white text-lg font-bold">1</span>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Upload Resume</h3>
-                    <p className="text-gray-600">Upload your resume in PDF, DOCX, or TXT format for instant analysis.</p>
+            <div className="how-it-works-grid">
+                <div className="how-it-works-step">
+                  <span className="w-12 h-12 bg-indigo-600 rounded-full text-white text-lg font-bold step-number">1</span>
+                  <div className="step-content">
+                    <h3 className="text-lg font-semibold text-gray-900 step-title">Upload Resume</h3>
+                    <p className="text-gray-600 step-description">Upload your resume in PDF, DOCX, or TXT format for instant analysis.</p>
                   </div>
                 </div>
-                <div className="flex items-start space-x-4">
-                  <span className="flex-shrink-0 w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white text-lg font-bold">2</span>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">AI Analysis</h3>
-                    <p className="text-gray-600">Our AI analyzes content, structure, keywords, and overall effectiveness.</p>
+                <div className="how-it-works-step">
+                  <span className="w-12 h-12 bg-indigo-600 rounded-full text-white text-lg font-bold step-number">2</span>
+                  <div className="step-content">
+                    <h3 className="text-lg font-semibold text-gray-900 step-title">AI Analysis</h3>
+                    <p className="text-gray-600 step-description">Our AI analyzes content, structure, keywords, and overall effectiveness.</p>
                   </div>
                 </div>
-                <div className="flex items-start space-x-4">
-                  <span className="flex-shrink-0 w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white text-lg font-bold">3</span>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Get Feedback</h3>
-                    <p className="text-gray-600">Receive comprehensive feedback with specific improvement suggestions.</p>
+                <div className="how-it-works-step">
+                  <span className="w-12 h-12 bg-indigo-600 rounded-full text-white text-lg font-bold step-number">3</span>
+                  <div className="step-content">
+                    <h3 className="text-lg font-semibold text-gray-900 step-title">Get Feedback</h3>
+                    <p className="text-gray-600 step-description">Receive comprehensive feedback with specific improvement suggestions.</p>
                   </div>
                 </div>
-                <div className="flex items-start space-x-4">
-                  <span className="flex-shrink-0 w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white text-lg font-bold">4</span>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">Apply & Succeed</h3>
-                    <p className="text-gray-600">Use insights to improve your resume and boost your job search success.</p>
+                <div className="how-it-works-step">
+                  <span className="w-12 h-12 bg-indigo-600 rounded-full text-white text-lg font-bold step-number">4</span>
+                  <div className="step-content">
+                    <h3 className="text-lg font-semibold text-gray-900 step-title">Apply & Succeed</h3>
+                    <p className="text-gray-600 step-description">Use insights to improve your resume and boost your job search success.</p>
                   </div>
                 </div>
-              </div>
             </div>
           </div>
         </section>
 
         {/* CTA Section - Full Width */}
-        <section className="w-full py-16 lg:py-20 text-center bg-white">
+        <section className="w-full py-16 lg:py-20 text-center bg-white section-top-spacing cta-section">
           <div className="w-full px-6 sm:px-8 lg:px-16 xl:px-24">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Ready to Get Started?</h2>
-              <p className="text-lg text-gray-600 mb-8">
+            <div className="cta-container">
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 cta-title">Ready to Get Started?</h2>
+              <p className="text-lg text-gray-600 cta-description">
                 Join thousands of professionals who have improved their resumes with ResumX.
               </p>
               <Button 
                 variant="primary" 
                 size="large"
-                className="bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-4 rounded-lg font-semibold text-lg shadow-lg transition-all duration-200 transform hover:scale-105"
+                className="cta-button"
                 onClick={() => window.location.href = '/analyze'}
               >
                 Start Your Analysis
