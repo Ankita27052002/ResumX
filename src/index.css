@@ -14,6 +14,89 @@
   margin-right: 20px;
 }
 
+/* Clean Professional Navigation */
+.nav-links {
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+.nav-item {
+  position: relative !important;
+  padding: 12px 24px !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  text-decoration: none !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+  border: 1px solid transparent !important;
+}
+
+.nav-item:hover {
+  color: white !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.nav-item-active {
+  color: white !important;
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  font-weight: 600 !important;
+}
+
+.nav-item-active:hover {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Professional AI Powered Badge Styling */
+.logo-title {
+  margin-right: 12px !important;
+}
+
+.ai-powered-badge {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%) !important;
+  padding: 6px 16px !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  overflow: hidden !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.ai-powered-text {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: white !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.ai-powered-glow {
+  position: absolute !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent) !important;
+  transition: left 0.8s ease !important;
+}
+
+.ai-powered-badge:hover .ai-powered-glow {
+  left: 100% !important;
+}
+
+.ai-powered-badge:hover {
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
 /* Fix spacing between header and main content */
 .main-content-spacing {
   margin-top: 40px !important;

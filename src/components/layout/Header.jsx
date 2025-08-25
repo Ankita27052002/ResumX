@@ -7,32 +7,33 @@ const Header = () => {
         <div className="flex justify-between items-center h-16 py-2">
           {/* Logo Section - Left Side */}
           <div className="flex items-center header-logo">
-              <h1 className="text-2xl font-bold text-white tracking-wide">
+              <h1 className="text-2xl font-bold text-white tracking-wide logo-title">
                 ResumX
               </h1>
-              <span className="bg-emerald-400 text-emerald-900 px-3 py-1 rounded-full text-xs font-medium shadow-md">
-                AI Powered
-              </span>
+              <div className="ai-powered-badge">
+                <span className="ai-powered-text">AI Powered</span>
+                <div className="ai-powered-glow"></div>
+              </div>
           </div>
           
           {/* Navigation Section - Right Side */}
           <nav className="hidden md:flex nav-menu">
-            <div className="flex items-center gap-6">
+            <div className="nav-links">
               <a 
                 href="/" 
-                className="bg-white/20 text-white px-6 py-2 rounded-md font-medium text-sm hover:bg-white/30 transition-colors duration-200"
+                className="nav-item nav-item-active"
               >
                 Home
               </a>
               <a 
                 href="/analyze" 
-                className="text-white/90 hover:text-white px-6 py-2 rounded-md font-medium text-sm hover:bg-white/20 transition-colors duration-200"
+                className="nav-item"
               >
                 Analyze Resume
               </a>
               <a 
                 href="/about" 
-                className="text-white/90 hover:text-white px-6 py-2 rounded-md font-medium text-sm hover:bg-white/20 transition-colors duration-200"
+                className="nav-item"
               >
                 About
               </a>
