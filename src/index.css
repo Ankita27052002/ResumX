@@ -10,6 +10,26 @@
   margin-left: 20px;
 }
 
+/* Logo Link Styling */
+.logo-link {
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  border-radius: 8px !important;
+  padding: 4px 8px !important;
+  margin: -4px -8px !important;
+}
+
+.logo-link:hover {
+  transform: translateY(-1px) !important;
+  filter: brightness(1.1) !important;
+}
+
+.logo-link:active {
+  transform: translateY(0) !important;
+  filter: brightness(0.95) !important;
+}
+
 .nav-menu{
   margin-right: 20px;
 }
@@ -446,11 +466,33 @@
   align-items: flex-start !important;
 }
 
+.footer-brand-link {
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  border-radius: 4px !important;
+  padding: 4px 0 !important;
+  margin: -4px 0 !important;
+}
+
+.footer-brand-link:hover {
+  transform: translateY(-1px) !important;
+}
+
+.footer-brand-link:hover .footer-brand-title {
+  color: #e5e7eb !important;
+}
+
+.footer-brand-link:active {
+  transform: translateY(0) !important;
+}
+
 .footer-brand-title {
   font-size: 24px !important;
   font-weight: 700 !important;
   color: white !important;
   margin-bottom: 12px !important;
+  transition: color 0.3s ease !important;
 }
 
 .footer-brand-description {

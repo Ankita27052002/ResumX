@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
@@ -7,6 +8,11 @@ const Header = () => {
         <div className="flex justify-between items-center h-16 py-2">
           {/* Logo Section - Left Side */}
           <div className="flex items-center header-logo">
+            <Link 
+              to="/" 
+              className="flex items-center logo-link"
+              title="Go to Home Page"
+            >
               <h1 className="text-2xl font-bold text-white tracking-wide logo-title">
                 ResumX
               </h1>
@@ -14,6 +20,7 @@ const Header = () => {
                 <span className="ai-powered-text">AI Powered</span>
                 <div className="ai-powered-glow"></div>
               </div>
+            </Link>
           </div>
           
           {/* Navigation Section - Right Side */}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -6,7 +7,13 @@ const Footer = () => {
       <div className="footer-container">
         <div className="footer-main-content">
           <div className="footer-brand">
-            <h3 className="footer-brand-title">ResumX</h3>
+            <Link 
+              to="/" 
+              className="footer-brand-link"
+              title="Go to Home Page"
+            >
+              <h3 className="footer-brand-title">ResumX</h3>
+            </Link>
             <p className="footer-brand-description">
               AI-powered resume analysis and career insights
             </p>
