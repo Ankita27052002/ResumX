@@ -1,0 +1,449 @@
+/* ===== ABOUT PAGE STYLES ===== */
+
+/* Main Container */
+.about-page-container {
+  width: 100% !important;
+  min-height: 100vh !important;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+}
+
+/* Hero Section */
+.about-hero-section {
+  width: 100% !important;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  padding: 4rem 2rem !important;
+  text-align: center !important;
+  margin-bottom: 0 !important;
+}
+
+.about-hero-content {
+  max-width: 800px !important;
+  margin: 0 auto !important;
+}
+
+.about-main-title {
+  font-size: 3.5rem !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+  margin: 0 0 1.5rem 0 !important;
+  letter-spacing: -0.025em !important;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.about-subtitle {
+  font-size: 1.25rem !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  margin: 0 !important;
+  font-weight: 400 !important;
+  line-height: 1.6 !important;
+}
+
+/* Main Content Area */
+.about-main-content {
+  max-width: 1100px !important;
+  margin: 0 auto !important;
+  padding: 3rem 2rem !important;
+}
+
+/* Section Styling */
+.about-section {
+  margin-bottom: 4rem !important;
+  text-align: center !important;
+}
+
+.about-section-content {
+  max-width: 900px !important;
+  margin: 0 auto !important;
+}
+
+.about-section-title {
+  font-size: 2.25rem !important;
+  font-weight: 700 !important;
+  color: #1f2937 !important;
+  margin: 0 0 2rem 0 !important;
+  text-align: center !important;
+  position: relative !important;
+}
+
+.about-section-title::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: -0.5rem !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 60px !important;
+  height: 3px !important;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+  border-radius: 2px !important;
+}
+
+/* Introduction Section */
+.about-introduction {
+  background: #ffffff !important;
+  border-radius: 16px !important;
+  padding: 3rem !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+.about-intro-text {
+  font-size: 1.125rem !important;
+  color: #374151 !important;
+  line-height: 1.8 !important;
+  margin: 0 !important;
+  text-align: center !important;
+  font-weight: 400 !important;
+}
+
+/* Text Content */
+.about-text-content {
+  text-align: left !important;
+  max-width: 800px !important;
+  margin: 0 auto !important;
+}
+
+.about-text-content p {
+  font-size: 1rem !important;
+  color: #4b5563 !important;
+  line-height: 1.7 !important;
+  margin: 0 0 1.5rem 0 !important;
+  font-weight: 400 !important;
+}
+
+/* Features Section */
+.about-features {
+  background: #ffffff !important;
+  border-radius: 20px !important;
+  padding: 3rem !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+.about-features-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+  gap: 2rem !important;
+  margin-top: 2rem !important;
+}
+
+.about-feature-card {
+  background: #f8fafc !important;
+  border-radius: 16px !important;
+  padding: 2rem !important;
+  text-align: center !important;
+  border: 1px solid #e2e8f0 !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.about-feature-card::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 4px !important;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+}
+
+.about-feature-card:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12) !important;
+  background: #ffffff !important;
+}
+
+.about-feature-icon {
+  font-size: 3rem !important;
+  margin: 0 0 1rem 0 !important;
+  display: block !important;
+}
+
+.about-feature-title {
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  color: #1f2937 !important;
+  margin: 0 0 1rem 0 !important;
+}
+
+.about-feature-description {
+  font-size: 0.95rem !important;
+  color: #6b7280 !important;
+  line-height: 1.6 !important;
+  margin: 0 !important;
+  font-weight: 400 !important;
+}
+
+/* Tips Section */
+.about-tips {
+  background: #ffffff !important;
+  border-radius: 20px !important;
+  padding: 3rem !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+.about-tips-content {
+  max-width: 800px !important;
+  margin: 0 auto !important;
+}
+
+.about-tips-intro {
+  font-size: 1rem !important;
+  color: #4b5563 !important;
+  line-height: 1.7 !important;
+  margin: 0 0 2rem 0 !important;
+  text-align: center !important;
+  font-weight: 400 !important;
+}
+
+.about-tips-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)) !important;
+  gap: 1.5rem !important;
+}
+
+.about-tip-item {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 1rem !important;
+  background: #f8fafc !important;
+  padding: 1.5rem !important;
+  border-radius: 12px !important;
+  border: 1px solid #e2e8f0 !important;
+  transition: all 0.3s ease !important;
+}
+
+.about-tip-item:hover {
+  background: #ffffff !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08) !important;
+  transform: translateY(-2px) !important;
+}
+
+.about-tip-number {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+  color: #ffffff !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: 700 !important;
+  font-size: 0.875rem !important;
+  flex-shrink: 0 !important;
+}
+
+.about-tip-item p {
+  margin: 0 !important;
+  font-size: 0.95rem !important;
+  color: #374151 !important;
+  line-height: 1.6 !important;
+  font-weight: 400 !important;
+}
+
+/* CTA Section */
+.about-cta {
+  margin: 4rem 0 !important;
+}
+
+.about-cta-card {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+  border-radius: 24px !important;
+  padding: 4rem 3rem !important;
+  text-align: center !important;
+  box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.about-cta-card::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><circle cx="30" cy="30" r="2"/></g></svg>') !important;
+  opacity: 0.5 !important;
+}
+
+.about-cta-title {
+  font-size: 2.5rem !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+  margin: 0 0 1.5rem 0 !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.about-cta-description {
+  font-size: 1.125rem !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  line-height: 1.6 !important;
+  margin: 0 0 2.5rem 0 !important;
+  max-width: 600px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  position: relative !important;
+  z-index: 1 !important;
+  font-weight: 400 !important;
+}
+
+.about-cta-button {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* FAQ Section */
+.about-faq {
+  background: #ffffff !important;
+  border-radius: 20px !important;
+  padding: 3rem !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+.about-faq-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2rem !important;
+  max-width: 800px !important;
+  margin: 0 auto !important;
+}
+
+.about-faq-item {
+  background: #f8fafc !important;
+  border-radius: 12px !important;
+  padding: 2rem !important;
+  border: 1px solid #e2e8f0 !important;
+  text-align: left !important;
+  transition: all 0.3s ease !important;
+}
+
+.about-faq-item:hover {
+  background: #ffffff !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08) !important;
+  transform: translateY(-2px) !important;
+}
+
+.about-faq-question {
+  font-size: 1.125rem !important;
+  font-weight: 700 !important;
+  color: #1f2937 !important;
+  margin: 0 0 1rem 0 !important;
+  line-height: 1.4 !important;
+}
+
+.about-faq-answer {
+  font-size: 0.95rem !important;
+  color: #6b7280 !important;
+  line-height: 1.6 !important;
+  margin: 0 !important;
+  font-weight: 400 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .about-hero-section {
+    padding: 3rem 1rem !important;
+  }
+  
+  .about-main-title {
+    font-size: 2.5rem !important;
+  }
+  
+  .about-subtitle {
+    font-size: 1.125rem !important;
+  }
+  
+  .about-main-content {
+    padding: 2rem 1rem !important;
+  }
+  
+  .about-section {
+    margin-bottom: 3rem !important;
+  }
+  
+  .about-section-title {
+    font-size: 1.875rem !important;
+  }
+  
+  .about-introduction,
+  .about-features,
+  .about-tips,
+  .about-faq {
+    padding: 2rem !important;
+  }
+  
+  .about-features-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+  
+  .about-tips-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .about-cta-card {
+    padding: 3rem 2rem !important;
+  }
+  
+  .about-cta-title {
+    font-size: 2rem !important;
+  }
+  
+  .about-cta-description {
+    font-size: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-hero-section {
+    padding: 2rem 1rem !important;
+  }
+  
+  .about-main-title {
+    font-size: 2rem !important;
+  }
+  
+  .about-subtitle {
+    font-size: 1rem !important;
+  }
+  
+  .about-main-content {
+    padding: 1.5rem 1rem !important;
+  }
+  
+  .about-introduction,
+  .about-features,
+  .about-tips,
+  .about-faq {
+    padding: 1.5rem !important;
+  }
+  
+  .about-section-title {
+    font-size: 1.5rem !important;
+  }
+  
+  .about-feature-card {
+    padding: 1.5rem !important;
+  }
+  
+  .about-tip-item {
+    padding: 1rem !important;
+  }
+  
+  .about-cta-card {
+    padding: 2rem 1.5rem !important;
+  }
+  
+  .about-cta-title {
+    font-size: 1.75rem !important;
+  }
+  
+  .about-faq-item {
+    padding: 1.5rem !important;
+  }
+}
