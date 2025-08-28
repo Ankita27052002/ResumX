@@ -537,6 +537,264 @@
   height: 20px !important;
 }
 
+/* Analyze Page Professional Styling */
+.analyze-page-container {
+  width: 100% !important;
+  min-height: calc(100vh - 140px) !important;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+  padding: 40px 0 !important;
+}
+
+.analyze-page-content {
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 24px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+}
+
+.analyze-header-section {
+  margin-bottom: 48px !important;
+  width: 100% !important;
+  max-width: 800px !important;
+}
+
+.analyze-title {
+  font-size: 48px !important;
+  font-weight: 800 !important;
+  color: #1e293b !important;
+  margin-bottom: 16px !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.02em !important;
+}
+
+.analyze-subtitle {
+  font-size: 20px !important;
+  color: #64748b !important;
+  font-weight: 500 !important;
+  line-height: 1.6 !important;
+  max-width: 600px !important;
+  margin: 0 auto !important;
+}
+
+.analyze-upload-section {
+  width: 100% !important;
+  max-width: 700px !important;
+  margin-bottom: 40px !important;
+}
+
+.analyze-button-container {
+  margin-top: 32px !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.analyze-button {
+  width: 100% !important;
+  max-width: 300px !important;
+  padding: 16px 32px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25) !important;
+}
+
+.analyze-results-section {
+  width: 100% !important;
+  max-width: 1000px !important;
+}
+
+.analyze-reset-container {
+  margin-top: 40px !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.analyze-reset-button {
+  width: 100% !important;
+  max-width: 300px !important;
+  padding: 12px 24px !important;
+  font-size: 16px !important;
+}
+
+.analyze-error-section {
+  margin-top: 32px !important;
+  padding: 24px !important;
+  background: rgba(254, 242, 242, 0.8) !important;
+  border: 1px solid #fecaca !important;
+  border-radius: 16px !important;
+  max-width: 500px !important;
+  width: 100% !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.analyze-error-text {
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  color: #dc2626 !important;
+  margin-bottom: 16px !important;
+}
+
+.analyze-error-button {
+  width: 100% !important;
+  padding: 12px 24px !important;
+}
+
+/* File Uploader Professional Styling */
+.file-uploader-container {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.file-uploader-dropzone {
+  width: 100% !important;
+  max-width: 600px !important;
+  padding: 48px 32px !important;
+  border: 3px dashed #cbd5e1 !important;
+  border-radius: 20px !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(10px) !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  text-align: center !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+}
+
+.file-uploader-dropzone:hover {
+  border-color: #94a3b8 !important;
+  background: rgba(248, 250, 252, 0.9) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+.file-uploader-active {
+  border-color: #3b82f6 !important;
+  background: rgba(239, 246, 255, 0.9) !important;
+  box-shadow: 0 12px 40px rgba(59, 130, 246, 0.2) !important;
+}
+
+.file-uploader-content {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.file-uploader-icon {
+  margin-bottom: 24px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.upload-icon {
+  width: 80px !important;
+  height: 80px !important;
+  color: #6366f1 !important;
+  stroke-width: 1.5 !important;
+}
+
+.file-uploader-main-text {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  color: #374151 !important;
+  margin-bottom: 12px !important;
+  line-height: 1.5 !important;
+}
+
+.file-uploader-browse-text {
+  color: #6366f1 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 2px !important;
+}
+
+.file-uploader-support-text {
+  font-size: 16px !important;
+  color: #6b7280 !important;
+  font-weight: 500 !important;
+}
+
+.file-uploader-loading {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.file-uploader-spinner {
+  width: 48px !important;
+  height: 48px !important;
+  border: 4px solid #e5e7eb !important;
+  border-top: 4px solid #3b82f6 !important;
+  border-radius: 50% !important;
+  animation: spin 1s linear infinite !important;
+  margin-bottom: 16px !important;
+}
+
+.file-uploader-loading-text {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #374151 !important;
+}
+
+.file-uploader-error {
+  margin-top: 24px !important;
+  padding: 20px !important;
+  background: rgba(254, 242, 242, 0.8) !important;
+  border: 1px solid #fecaca !important;
+  border-radius: 12px !important;
+  max-width: 500px !important;
+  width: 100% !important;
+  text-align: left !important;
+}
+
+.file-uploader-error-title {
+  font-weight: 600 !important;
+  color: #dc2626 !important;
+  margin-bottom: 8px !important;
+}
+
+.file-uploader-error-message {
+  color: #dc2626 !important;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design for Analyze Page */
+@media (max-width: 768px) {
+  .analyze-page-content {
+    padding: 0 16px !important;
+  }
+  
+  .analyze-title {
+    font-size: 36px !important;
+  }
+  
+  .analyze-subtitle {
+    font-size: 18px !important;
+  }
+  
+  .file-uploader-dropzone {
+    padding: 32px 24px !important;
+  }
+  
+  .upload-icon {
+    width: 64px !important;
+    height: 64px !important;
+  }
+  
+  .file-uploader-main-text {
+    font-size: 18px !important;
+  }
+}
+
 /* Responsive footer design */
 @media (max-width: 768px) {
   .footer-main-content {

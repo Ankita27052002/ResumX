@@ -41,22 +41,22 @@ const AnalyzePage = () => {
 
   return (
     <Layout>
-      <div className="max-w-3xl mx-auto w-full">
-        <div className="bg-white/80 shadow-xl rounded-2xl px-6 py-10 md:px-12 md:py-14 mb-12 border border-gray-100">
-          <div className="text-center mb-10">
-            <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">Resume Analysis</h1>
-            <p className="mt-4 text-lg text-gray-500">Upload your resume and get AI-powered feedback and insights</p>
+      <div className="w-full analyze-page-container">
+        <div className="analyze-page-content">
+          <div className="analyze-header-section">
+            <h1 className="analyze-title">Resume Analysis</h1>
+            <p className="analyze-subtitle">Upload your resume and get AI-powered feedback and insights</p>
           </div>
 
           {!hasAnalysisResults && !isAnalyzing && (
-            <div className="mb-10">
+            <div className="analyze-upload-section">
               <FileUploader onFileTextReady={handleFileTextReady} />
               {fileText && (
-                <div className="mt-8 flex justify-center">
+                <div className="analyze-button-container">
                   <Button 
                     variant="primary" 
                     size="large"
-                    className="w-full max-w-xs shadow-lg"
+                    className="analyze-button"
                     onClick={handleAnalyzeClick}
                     disabled={isAnalyzing}
                   >
@@ -68,7 +68,7 @@ const AnalyzePage = () => {
           )}
 
           {(hasAnalysisResults || isAnalyzing) && (
-            <div className="">
+            <div className="analyze-results-section">
               <AnalysisResult
                 analysis={analysis}
                 extractedInfo={extractedInfo}
@@ -76,10 +76,10 @@ const AnalyzePage = () => {
                 isLoading={isAnalyzing}
               />
               {hasAnalysisResults && !isAnalyzing && (
-                <div className="mt-10 flex justify-center">
+                <div className="analyze-reset-container">
                   <Button 
                     variant="secondary" 
-                    className="w-full max-w-xs"
+                    className="analyze-reset-button"
                     onClick={handleReset}
                   >
                     Analyze Another Resume
@@ -90,11 +90,11 @@ const AnalyzePage = () => {
           )}
 
           {error && (
-            <div className="mt-8 p-5 bg-red-50 border border-red-200 text-red-700 rounded-xl max-w-lg mx-auto shadow">
-              <p className="font-semibold text-base">Error: {error}</p>
+            <div className="analyze-error-section">
+              <p className="analyze-error-text">Error: {error}</p>
               <Button 
                 variant="danger" 
-                className="mt-4 w-full"
+                className="analyze-error-button"
                 onClick={handleReset}
               >
                 Try Again

@@ -39,10 +39,9 @@ const FileUploader = () => {
   };
 
   return (
-    <div className="w-full max-w-xl mx-auto">
+    <div className="file-uploader-container">
       <div
-        className={`p-8 md:p-10 border-2 ${dragActive ? 'border-blue-600 bg-blue-50/80' : 'border-dashed border-gray-200 bg-white/90'} 
-                    rounded-2xl text-center cursor-pointer transition-all duration-200 shadow-xl hover:bg-gray-50/80 border-spacing-2`}
+        className={`file-uploader-dropzone ${dragActive ? 'file-uploader-active' : ''}`}
         onDragEnter={handleDrag}
         onDragLeave={handleDrag}
         onDragOver={handleDrag}
@@ -58,9 +57,9 @@ const FileUploader = () => {
           disabled={isAnalyzing}
         />
         {isAnalyzing ? (
-          <div className="text-center">
-            <div className="inline-block animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500 mb-3"></div>
-            <p className="text-gray-700 font-semibold text-base">
+          <div className="file-uploader-loading">
+            <div className="file-uploader-spinner"></div>
+            <p className="file-uploader-loading-text">
               {processingStage === 'extracting' && 'Extracting text from your resume...'}
               {processingStage === 'analyzing' && 'Analyzing your resume...'}
               {processingStage === 'generating' && 'Generating recommendations...'}
@@ -68,33 +67,35 @@ const FileUploader = () => {
             </p>
           </div>
         ) : (
-          <>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="mx-auto h-14 w-14 text-indigo-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-              />
-            </svg>
-            <p className="mt-4 text-lg font-semibold text-gray-800">
-              Drag and drop your resume or <span className="text-indigo-600 underline">click to browse</span>
+          <div className="file-uploader-content">
+            <div className="file-uploader-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="upload-icon"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                />
+              </svg>
+            </div>
+            <p className="file-uploader-main-text">
+              Drag and drop your resume or <span className="file-uploader-browse-text">click to browse</span>
             </p>
-            <p className="mt-2 text-sm text-gray-500">Supports PDF and Text files</p>
-          </>
+            <p className="file-uploader-support-text">Supports PDF and Text files</p>
+          </div>
         )}
       </div>
 
       {error && (
-        <div className="mt-5 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl shadow">
-          <p className="font-semibold">Error:</p>
-          <p>{error}</p>
+        <div className="file-uploader-error">
+          <p className="file-uploader-error-title">Error:</p>
+          <p className="file-uploader-error-message">{error}</p>
         </div>
       )}
     </div>

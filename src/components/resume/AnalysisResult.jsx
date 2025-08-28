@@ -1,6 +1,50 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import '../../styles/AnalysisResult.css';
 
 const AnalysisResult = ({ analysis, extractedInfo, jobRecommendations, isLoading }) => {
+  useEffect(() => {
+    // Tab switching functionality
+    const handleTabClick = (e) => {
+      e.preventDefault();
+      
+      const target = e.target.getAttribute('href').substring(1);
+      
+      // Hide all content sections
+      const sections = document.querySelectorAll('.analysis-content-section');
+      sections.forEach(section => {
+        section.classList.add('hidden');
+      });
+      
+      // Remove active class from all tabs
+      const tabs = document.querySelectorAll('.analysis-tab');
+      tabs.forEach(tab => {
+        tab.classList.remove('analysis-tab-active', 'active');
+      });
+      
+      // Show target section
+      const targetSection = document.getElementById(target);
+      if (targetSection) {
+        targetSection.classList.remove('hidden');
+      }
+      
+      // Add active class to clicked tab
+      e.target.classList.add('analysis-tab-active', 'active');
+    };
+
+    // Add event listeners to tabs
+    const tabs = document.querySelectorAll('.analysis-tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', handleTabClick);
+    });
+
+    // Cleanup event listeners
+    return () => {
+      tabs.forEach(tab => {
+        tab.removeEventListener('click', handleTabClick);
+      });
+    };
+  }, [analysis, extractedInfo, jobRecommendations]);
+
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center p-10">
@@ -16,234 +60,222 @@ const AnalysisResult = ({ analysis, extractedInfo, jobRecommendations, isLoading
   }
 
   return (
-    <div className="w-full max-w-3xl mx-auto">
-      <div className="bg-white/90 shadow-2xl rounded-2xl overflow-hidden border border-gray-100">
-        <div className="p-8 md:p-10">
-          <h2 className="text-3xl font-extrabold text-gray-900 mb-8 text-center tracking-tight">Resume Analysis Results</h2>
+    <div className="analysis-results-container">
+      <div className="analysis-results-card">
+        <div className="analysis-results-header">
+          <h2 className="analysis-results-title">Resume Analysis Results</h2>
           {/* Tabs */}
-          <div className="flex flex-wrap justify-center gap-4 mb-10">
-            <a href="#analysis" className="px-5 py-2 rounded-full font-semibold text-indigo-700 bg-indigo-50 border border-indigo-200 shadow-sm hover:bg-indigo-100 transition">Analysis</a>
-            <a href="#profile" className="px-5 py-2 rounded-full font-semibold text-gray-700 bg-gray-50 border border-gray-200 shadow-sm hover:bg-gray-100 transition">Resume Profile</a>
-            <a href="#recommendations" className="px-5 py-2 rounded-full font-semibold text-gray-700 bg-gray-50 border border-gray-200 shadow-sm hover:bg-gray-100 transition">Career Recommendations</a>
+          <div className="analysis-tabs">
+            <a href="#analysis" className="analysis-tab analysis-tab-active">Analysis</a>
+            <a href="#profile" className="analysis-tab">Resume Profile</a>
+            <a href="#recommendations" className="analysis-tab">Career Recommendations</a>
           </div>
+        </div>
 
-          {/* Analysis Tab Content */}
-          <div id="analysis" className="prose max-w-none bg-indigo-50/60 rounded-xl p-6 mb-8 border border-indigo-100 shadow-sm">
-            {analysis && (
-              <div dangerouslySetInnerHTML={{ 
-                __html: analysis.replace(/\n/g, '<br />') 
-                               .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                               .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                               .replace(/^#+\s(.*?)$/gm, match => {
-                                 const level = match.match(/^#+/)[0].length;
-                                 const text = match.replace(/^#+\s/, '');
-                                 return `<h${level} class='text-gray-800 font-bold mb-3 mt-6'>${text}</h${level}>`;
-                               })
-              }} />
-            )}
-          </div>
+        {/* Analysis Tab Content */}
+        <div id="analysis" className="analysis-content-section">
+          {analysis && (
+            <div className="analysis-text-content" dangerouslySetInnerHTML={{ 
+              __html: analysis.replace(/\n/g, '<br />') 
+                             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                             .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                             .replace(/^#+\s(.*?)$/gm, match => {
+                               const level = match.match(/^#+/)[0].length;
+                               const text = match.replace(/^#+\s/, '');
+                               return `<h${level} class='analysis-heading analysis-heading-${level}'>${text}</h${level}>`;
+                             })
+            }} />
+          )}
+        </div>
 
-          {/* Profile Tab Content (Hidden by default) */}
-          <div id="profile" className="hidden">
-            {extractedInfo && (
-              <div className="space-y-8">
-                <div className="bg-gray-50 p-5 rounded-xl border border-gray-200">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Contact Information</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <p className="text-sm text-gray-500">Name</p>
-                      <p className="font-medium">{extractedInfo.contact.name}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-500">Email</p>
-                      <p className="font-medium">{extractedInfo.contact.email}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-500">Phone</p>
-                      <p className="font-medium">{extractedInfo.contact.phone}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-500">Location</p>
-                      <p className="font-medium">{extractedInfo.contact.location}</p>
-                    </div>
+        {/* Profile Tab Content (Hidden by default) */}
+        <div id="profile" className="analysis-content-section hidden">
+          {extractedInfo && (
+            <div className="profile-sections">
+              <div className="profile-contact-section">
+                <h3 className="profile-section-title">Contact Information</h3>
+                <div className="contact-grid">
+                  <div className="contact-item">
+                    <p className="contact-label">Name</p>
+                    <p className="contact-value">{extractedInfo.contact.name}</p>
+                  </div>
+                  <div className="contact-item">
+                    <p className="contact-label">Email</p>
+                    <p className="contact-value">{extractedInfo.contact.email}</p>
+                  </div>
+                  <div className="contact-item">
+                    <p className="contact-label">Phone</p>
+                    <p className="contact-value">{extractedInfo.contact.phone}</p>
+                  </div>
+                  <div className="contact-item">
+                    <p className="contact-label">Location</p>
+                    <p className="contact-value">{extractedInfo.contact.location}</p>
                   </div>
                 </div>
-                
-                <div>
-                  <h3 className="text-lg font-medium text-gray-800 mb-3">Summary</h3>
-                  <p className="text-gray-700">{extractedInfo.summary}</p>
-                </div>
-                
-                <div>
-                  <h3 className="text-lg font-medium text-gray-800 mb-3">Skills</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {extractedInfo.skills.map((skill, index) => (
-                      <span 
-                        key={index} 
-                        className="bg-indigo-100 text-indigo-800 text-sm px-3 py-1 rounded-full"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                
-                <div>
-                  <h3 className="text-lg font-medium text-gray-800 mb-4">Work Experience</h3>
-                  <div className="space-y-6">
-                    {extractedInfo.workExperience.map((job, index) => (
-                      <div key={index} className="border-l-2 border-gray-200 pl-4 pb-2">
-                        <h4 className="font-semibold text-gray-800">{job.position}</h4>
-                        <p className="text-gray-600">{job.company} • {job.location}</p>
-                        <p className="text-sm text-gray-500">{job.duration}</p>
-                        <ul className="mt-2 space-y-1 list-disc list-inside text-gray-700">
-                          {job.responsibilities.map((resp, i) => (
-                            <li key={i}>{resp}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                
-                <div>
-                  <h3 className="text-lg font-medium text-gray-800 mb-4">Education</h3>
-                  <div className="space-y-4">
-                    {extractedInfo.education.map((edu, index) => (
-                      <div key={index}>
-                        <h4 className="font-semibold text-gray-800">{edu.institution}</h4>
-                        <p className="text-gray-700">{edu.degree} in {edu.field}</p>
-                        <p className="text-sm text-gray-500">{edu.graduation}</p>
-                        {edu.gpa && <p className="text-sm text-gray-500">GPA: {edu.gpa}</p>}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                
-                {extractedInfo.projects && extractedInfo.projects.length > 0 && (
-                  <div>
-                    <h3 className="text-lg font-medium text-gray-800 mb-4">Projects</h3>
-                    <div className="space-y-4">
-                      {extractedInfo.projects.map((project, index) => (
-                        <div key={index}>
-                          <h4 className="font-semibold text-gray-800">{project.title}</h4>
-                          <p className="text-gray-700">{project.description}</p>
-                          <div className="mt-2 flex flex-wrap gap-1">
-                            {project.technologies.map((tech, i) => (
-                              <span 
-                                key={i} 
-                                className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded"
-                              >
-                                {tech}
-                              </span>
-                            ))}
-                          </div>
-                          {project.link && (
-                            <a 
-                              href={project.link} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="text-sm text-indigo-600 hover:text-indigo-800 mt-1 inline-block"
-                            >
-                              View Project
-                            </a>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </div>
-            )}
-          </div>
-          
-          {/* Recommendations Tab Content (Hidden by default) */}
-          <div id="recommendations" className="hidden">
-            {jobRecommendations && (
-              <div className="space-y-8">
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-800 mb-4">Recommended Roles</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {jobRecommendations.recommendedRoles.map((role, index) => (
-                      <div key={index} className="bg-white border border-gray-200 rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow">
-                        <h4 className="text-lg font-semibold text-indigo-700">{role.title}</h4>
-                        <p className="text-gray-700 mt-2">{role.description}</p>
-                        
-                        <div className="mt-4">
-                          <h5 className="text-sm font-medium text-gray-800">Why it's a good fit:</h5>
-                          <p className="text-sm text-gray-600 mt-1">{role.fitReason}</p>
+              
+              <div className="profile-section">
+                <h3 className="profile-section-title">Summary</h3>
+                <p className="profile-text">{extractedInfo.summary}</p>
+              </div>
+              
+              <div className="profile-section">
+                <h3 className="profile-section-title">Skills</h3>
+                <div className="skills-container">
+                  {extractedInfo.skills.map((skill, index) => (
+                    <span key={index} className="skill-tag">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="profile-section">
+                <h3 className="profile-section-title">Work Experience</h3>
+                <div className="experience-list">
+                  {extractedInfo.workExperience.map((job, index) => (
+                    <div key={index} className="experience-item">
+                      <h4 className="experience-position">{job.position}</h4>
+                      <p className="experience-company">{job.company} • {job.location}</p>
+                      <p className="experience-duration">{job.duration}</p>
+                      <ul className="experience-responsibilities">
+                        {job.responsibilities.map((resp, i) => (
+                          <li key={i}>{resp}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="profile-section">
+                <h3 className="profile-section-title">Education</h3>
+                <div className="education-list">
+                  {extractedInfo.education.map((edu, index) => (
+                    <div key={index} className="education-item">
+                      <h4 className="education-institution">{edu.institution}</h4>
+                      <p className="education-degree">{edu.degree} in {edu.field}</p>
+                      <p className="education-graduation">{edu.graduation}</p>
+                      {edu.gpa && <p className="education-gpa">GPA: {edu.gpa}</p>}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              {extractedInfo.projects && extractedInfo.projects.length > 0 && (
+                <div className="profile-section">
+                  <h3 className="profile-section-title">Projects</h3>
+                  <div className="projects-list">
+                    {extractedInfo.projects.map((project, index) => (
+                      <div key={index} className="project-item">
+                        <h4 className="project-title">{project.title}</h4>
+                        <p className="project-description">{project.description}</p>
+                        <div className="project-technologies">
+                          {project.technologies.map((tech, i) => (
+                            <span key={i} className="tech-tag">
+                              {tech}
+                            </span>
+                          ))}
                         </div>
-                        
-                        <div className="mt-4">
-                          <h5 className="text-sm font-medium text-gray-800">Skills you have:</h5>
-                          <div className="flex flex-wrap gap-1 mt-1">
-                            {role.skillsMatch.map((skill, i) => (
-                              <span 
-                                key={i} 
-                                className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded"
-                              >
-                                {skill}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                        
-                        {role.skillsToAcquire && role.skillsToAcquire.length > 0 && (
-                          <div className="mt-4">
-                            <h5 className="text-sm font-medium text-gray-800">Skills to acquire:</h5>
-                            <div className="flex flex-wrap gap-1 mt-1">
-                              {role.skillsToAcquire.map((skill, i) => (
-                                <span 
-                                  key={i} 
-                                  className="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded"
-                                >
-                                  {skill}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
+                        {project.link && (
+                          <a 
+                            href={project.link} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="project-link"
+                          >
+                            View Project
+                          </a>
                         )}
                       </div>
                     ))}
                   </div>
                 </div>
-                
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-800 mb-4">Suitable Industries</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                    {jobRecommendations.suitableIndustries.map((industry, index) => (
-                      <div key={index} className="bg-gray-50 p-4 rounded-lg">
-                        <h4 className="font-medium text-gray-800">{industry.name}</h4>
-                        <p className="text-sm text-gray-600 mt-1">{industry.reason}</p>
+              )}
+            </div>
+          )}
+        </div>
+        
+        {/* Recommendations Tab Content (Hidden by default) */}
+        <div id="recommendations" className="analysis-content-section hidden">
+          {jobRecommendations && (
+            <div className="recommendations-sections">
+              <div className="recommendations-section">
+                <h3 className="recommendations-section-title">Recommended Roles</h3>
+                <div className="roles-grid">
+                  {jobRecommendations.recommendedRoles.map((role, index) => (
+                    <div key={index} className="role-card">
+                      <h4 className="role-title">{role.title}</h4>
+                      <p className="role-description">{role.description}</p>
+                      
+                      <div className="role-fit">
+                        <h5 className="role-subsection-title">Why it's a good fit:</h5>
+                        <p className="role-fit-reason">{role.fitReason}</p>
                       </div>
-                    ))}
-                  </div>
-                </div>
-                
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-800 mb-4">Career Pathways</h3>
-                  <div className="space-y-6">
-                    {jobRecommendations.careerPathways.map((pathway, index) => (
-                      <div key={index} className="border-l-2 border-indigo-300 pl-4">
-                        <h4 className="font-semibold text-gray-800">{pathway.path}</h4>
-                        <p className="text-gray-600 mt-1">{pathway.description}</p>
-                        <p className="text-sm text-gray-500 mt-2">Estimated timeline: {pathway.timelineEstimate}</p>
-                        
-                        <div className="mt-3">
-                          <h5 className="text-sm font-medium text-gray-800">Next steps:</h5>
-                          <ul className="mt-1 space-y-1 list-disc list-inside text-sm text-gray-700">
-                            {pathway.nextSteps.map((step, i) => (
-                              <li key={i}>{step}</li>
-                            ))}
-                          </ul>
+                      
+                      <div className="role-skills">
+                        <h5 className="role-subsection-title">Skills you have:</h5>
+                        <div className="skills-match">
+                          {role.skillsMatch.map((skill, i) => (
+                            <span key={i} className="skill-match-tag">
+                              {skill}
+                            </span>
+                          ))}
                         </div>
                       </div>
-                    ))}
-                  </div>
+                      
+                      {role.skillsToAcquire && role.skillsToAcquire.length > 0 && (
+                        <div className="role-skills-needed">
+                          <h5 className="role-subsection-title">Skills to acquire:</h5>
+                          <div className="skills-needed">
+                            {role.skillsToAcquire.map((skill, i) => (
+                              <span key={i} className="skill-needed-tag">
+                                {skill}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
-            )}
-          </div>
+              
+              <div className="recommendations-section">
+                <h3 className="recommendations-section-title">Suitable Industries</h3>
+                <div className="industries-grid">
+                  {jobRecommendations.suitableIndustries.map((industry, index) => (
+                    <div key={index} className="industry-card">
+                      <h4 className="industry-name">{industry.name}</h4>
+                      <p className="industry-reason">{industry.reason}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="recommendations-section">
+                <h3 className="recommendations-section-title">Career Pathways</h3>
+                <div className="pathways-list">
+                  {jobRecommendations.careerPathways.map((pathway, index) => (
+                    <div key={index} className="pathway-item">
+                      <h4 className="pathway-title">{pathway.path}</h4>
+                      <p className="pathway-description">{pathway.description}</p>
+                      <p className="pathway-timeline">Estimated timeline: {pathway.timelineEstimate}</p>
+                      
+                      <div className="pathway-steps">
+                        <h5 className="pathway-steps-title">Next steps:</h5>
+                        <ul className="pathway-steps-list">
+                          {pathway.nextSteps.map((step, i) => (
+                            <li key={i}>{step}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
