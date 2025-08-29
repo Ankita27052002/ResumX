@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
-import { analyzeResume, extractResumeInfo, generateJobRecommendations } from '@services/aiService';
+import { analyzeResume, extractResumeInfo, generateJobRecommendations, calculateATSScore } from '@services/aiService';
 import { extractTextFromPDF, isValidPDF } from '@utils/pdfUtils';
 
 // Create context
@@ -21,6 +21,7 @@ export const ResumeProvider = ({ children }) => {
   const [analysis, setAnalysis] = useState(null);
   const [extractedInfo, setExtractedInfo] = useState(null);
   const [jobRecommendations, setJobRecommendations] = useState(null);
+  const [atsScore, setATSScore] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [error, setError] = useState(null);
   const [processingStage, setProcessingStage] = useState(null);
@@ -80,17 +81,29 @@ export const ResumeProvider = ({ children }) => {
         // Update processing stage for UI feedback
         setProcessingStage('analyzing');
 
-        // Run analysis in parallel
-        const [analysisResult, extractedInfoResult] = await Promise.all([
-          analyzeResume(textToAnalyze),
+        // Run core analysis first (most important)
+        setProcessingStage('It may take one or two minutes...');
+        const analysisResult = await analyzeResume(textToAnalyze);
+        setAnalysis(analysisResult);
+
+        // Small delay to avoid rate limiting
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        // Run extraction and ATS scoring in parallel (related operations)
+        setProcessingStage('Extracting information and calculating ATS score...');
+        const [extractedInfoResult, atsScoreResult] = await Promise.all([
           extractResumeInfo(textToAnalyze),
+          calculateATSScore(textToAnalyze),
         ]);
 
-        setAnalysis(analysisResult);
         setExtractedInfo(extractedInfoResult);
+        setATSScore(atsScoreResult);
 
         // Update processing stage
-        setProcessingStage('generating');
+        setProcessingStage('Generating career recommendations...');
+
+        // Another small delay before job recommendations
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
         // Generate job recommendations based on extracted info
         const recommendations = await generateJobRecommendations(extractedInfoResult);
@@ -100,6 +113,7 @@ export const ResumeProvider = ({ children }) => {
           analysis: analysisResult,
           extractedInfo: extractedInfoResult,
           jobRecommendations: recommendations,
+          atsScore: atsScoreResult,
         };
       } catch (err) {
         setError(err.message || 'Failed to analyze resume');
@@ -131,6 +145,7 @@ export const ResumeProvider = ({ children }) => {
     setAnalysis(null);
     setExtractedInfo(null);
     setJobRecommendations(null);
+    setATSScore(null);
     setError(null);
     setProcessingStage(null);
   }, []);
@@ -141,6 +156,7 @@ export const ResumeProvider = ({ children }) => {
     analysis,
     extractedInfo,
     jobRecommendations,
+    atsScore,
     isAnalyzing,
     processingStage,
     error,

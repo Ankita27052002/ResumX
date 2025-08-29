@@ -12,7 +12,9 @@ const AnalyzePage = () => {
     analysis,
     extractedInfo,
     jobRecommendations,
+    atsScore,
     isAnalyzing,
+    processingStage,
     error,
     analyzeResumeText,
     resetAnalysis
@@ -37,7 +39,7 @@ const AnalyzePage = () => {
     resetAnalysis();
   }, [resetAnalysis]);
 
-  const hasAnalysisResults = analysis || extractedInfo || jobRecommendations;
+  const hasAnalysisResults = analysis || extractedInfo || jobRecommendations || atsScore;
 
   return (
     <Layout>
@@ -73,7 +75,9 @@ const AnalyzePage = () => {
                 analysis={analysis}
                 extractedInfo={extractedInfo}
                 jobRecommendations={jobRecommendations}
+                atsScore={atsScore}
                 isLoading={isAnalyzing}
+                processingStage={processingStage}
               />
               {hasAnalysisResults && !isAnalyzing && (
                 <div className="analyze-reset-container">

@@ -85,58 +85,100 @@
 /* Analysis Text Content */
 .analysis-text-content {
   background: #f8fafc !important;
-  padding: 2rem !important;
+  padding: 1.5rem !important;
   border-radius: 12px !important;
   border: 1px solid #e2e8f0 !important;
-  line-height: 1.7 !important;
-  font-size: 0.875rem !important;
+  line-height: 1.6 !important;
+  font-size: 0.9375rem !important;
   color: #374151 !important;
 }
 
 .analysis-text-content p {
-  font-size: 0.875rem !important;
+  font-size: 0.9375rem !important;
   font-weight: 400 !important;
   color: #374151 !important;
   margin: 0.5rem 0 !important;
   line-height: 1.6 !important;
 }
 
+.analysis-text-content * {
+  color: #374151 !important;
+}
+
 .analysis-text-content strong {
   color: #1f2937 !important;
-  font-weight: 700 !important;
+  font-weight: 600 !important;
+  font-size: 0.9375rem !important;
 }
 
 .analysis-text-content em {
   color: #6366f1 !important;
   font-style: italic !important;
   font-weight: 400 !important;
-  font-size: 0.875rem !important;
+  font-size: 0.9375rem !important;
+}
+
+/* Additional content elements to ensure consistent font sizing */
+.analysis-text-content h1,
+.analysis-text-content h2,
+.analysis-text-content h3,
+.analysis-text-content h4,
+.analysis-text-content h5,
+.analysis-text-content h6 {
+  font-size: inherit !important;
+  margin: 0.75rem 0 0.375rem 0 !important;
+}
+
+.analysis-text-content ul,
+.analysis-text-content ol {
+  font-size: 0.9375rem !important;
+  margin: 0.5rem 0 !important;
+  padding-left: 1.25rem !important;
+  color: #374151 !important;
+}
+
+.analysis-text-content li {
+  font-size: 0.9375rem !important;
+  margin: 0.25rem 0 !important;
+  line-height: 1.6 !important;
+  color: #374151 !important;
+}
+
+.analysis-text-content span,
+.analysis-text-content div {
+  color: #374151 !important;
 }
 
 /* Analysis Headings */
 .analysis-heading {
-  margin: 2rem 0 1rem 0 !important;
-  font-weight: 800 !important;
+  margin: 1.5rem 0 0.75rem 0 !important;
+  font-weight: 700 !important;
   color: #1f2937 !important;
-  line-height: 1.2 !important;
+  line-height: 1.3 !important;
 }
 
 .analysis-heading-1 {
-  font-size: 2rem !important;
-  border-bottom: 3px solid #6366f1 !important;
-  padding-bottom: 0.5rem !important;
+  font-size: 1.25rem !important;
+  border-bottom: 2px solid #6366f1 !important;
+  padding-bottom: 0.375rem !important;
+  margin-bottom: 1rem !important;
+  color: #1f2937 !important;
 }
 
 .analysis-heading-2 {
-  font-size: 1.25rem !important;
+  font-size: 1.0625rem !important;
   color: #6366f1 !important;
   font-weight: 600 !important;
+  margin-top: 1.25rem !important;
+  margin-bottom: 0.5rem !important;
 }
 
 .analysis-heading-3 {
-  font-size: 1.125rem !important;
+  font-size: 1rem !important;
   color: #4f46e5 !important;
   font-weight: 600 !important;
+  margin-top: 1rem !important;
+  margin-bottom: 0.5rem !important;
 }
 
 /* Profile Sections */
@@ -163,11 +205,11 @@
 }
 
 .profile-section-title {
-  font-size: 1.5rem !important;
-  font-weight: 700 !important;
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;
   color: #1f2937 !important;
-  margin: 0 0 1.5rem 0 !important;
-  padding-bottom: 0.5rem !important;
+  margin: 0 0 1.25rem 0 !important;
+  padding-bottom: 0.375rem !important;
   border-bottom: 2px solid #6366f1 !important;
 }
 
@@ -186,14 +228,14 @@
 }
 
 .contact-label {
-  font-size: 0.875rem !important;
+  font-size: 0.9375rem !important;
   color: #6b7280 !important;
   margin: 0 0 0.25rem 0 !important;
   font-weight: 500 !important;
 }
 
 .contact-value {
-  font-size: 0.875rem !important;
+  font-size: 0.9375rem !important;
   color: #1f2937 !important;
   font-weight: 500 !important;
   margin: 0 !important;
@@ -201,7 +243,7 @@
 
 /* Profile Text */
 .profile-text {
-  font-size: 0.875rem !important;
+  font-size: 0.9375rem !important;
   color: #374151 !important;
   line-height: 1.6 !important;
   margin: 0 !important;
@@ -219,10 +261,10 @@
 .skill-tag {
   background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
   color: #ffffff !important;
-  padding: 0.5rem 1rem !important;
+  padding: 0.375rem 0.875rem !important;
   border-radius: 20px !important;
-  font-size: 0.875rem !important;
-  font-weight: 600 !important;
+  font-size: 0.9375rem !important;
+  font-weight: 500 !important;
   box-shadow: 0 2px 4px rgba(99, 102, 241, 0.3) !important;
 }
 
@@ -242,23 +284,23 @@
 }
 
 .experience-position {
-  font-size: 1.25rem !important;
-  font-weight: 700 !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
   color: #1f2937 !important;
-  margin: 0 0 0.5rem 0 !important;
+  margin: 0 0 0.375rem 0 !important;
 }
 
 .experience-company {
-  font-size: 0.875rem !important;
+  font-size: 0.9375rem !important;
   color: #6366f1 !important;
   font-weight: 500 !important;
   margin: 0 0 0.25rem 0 !important;
 }
 
 .experience-duration {
-  font-size: 0.875rem !important;
+  font-size: 0.9375rem !important;
   color: #6b7280 !important;
-  margin: 0 0 1rem 0 !important;
+  margin: 0 0 0.875rem 0 !important;
   font-weight: 500 !important;
 }
 
@@ -273,7 +315,8 @@
   color: #374151 !important;
   line-height: 1.5 !important;
   position: relative !important;
-  padding-left: 1.5rem !important;
+  padding-left: 1.25rem !important;
+  font-size: 0.9375rem !important;
 }
 
 .experience-responsibilities li::before {
