@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import ATSScoreDisplay from './ATSScoreDisplay';
+import ResumePreview from './ResumePreview';
 import '../../styles/AnalysisResult.css';
 
-const AnalysisResult = ({ analysis, extractedInfo, jobRecommendations, atsScore, isLoading, processingStage }) => {
+const AnalysisResult = ({ analysis, extractedInfo, jobRecommendations, atsScore, resumeFile, isLoading, processingStage }) => {
   useEffect(() => {
     // Tab switching functionality
     const handleTabClick = (e) => {
@@ -48,12 +49,15 @@ const AnalysisResult = ({ analysis, extractedInfo, jobRecommendations, atsScore,
 
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center p-10">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-indigo-600 mb-4"></div>
-        <h3 className="text-xl font-semibold text-gray-700">Analyzing your resume...</h3>
-        <p className="text-gray-500 mt-2">
-          {processingStage || "This may take a minute or two."}
-        </p>
+      <div className="analysis-results-container">
+        <div className="flex flex-col items-center justify-center p-10">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-indigo-600 mb-4"></div>
+          <h3 className="text-xl font-semibold text-gray-700">Analyzing your resume...</h3>
+          <p className="text-gray-500 mt-2">
+            {processingStage || "This may take a minute or two."}
+          </p>
+        </div>
+        {resumeFile && <ResumePreview file={resumeFile} />}
       </div>
     );
   }
@@ -64,6 +68,7 @@ const AnalysisResult = ({ analysis, extractedInfo, jobRecommendations, atsScore,
 
   return (
     <div className="analysis-results-container">
+      {resumeFile && <ResumePreview file={resumeFile} />}
       <div className="analysis-results-card">
         <div className="analysis-results-header">
           <h2 className="analysis-results-title">Resume Analysis Results</h2>

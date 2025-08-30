@@ -9,6 +9,7 @@ import { useResumeContext } from '@context/ResumeContext';
 const AnalyzePage = () => {
   const [fileText, setFileText] = useState('');
   const {
+    resumeFile,
     analysis,
     extractedInfo,
     jobRecommendations,
@@ -76,6 +77,7 @@ const AnalyzePage = () => {
                 extractedInfo={extractedInfo}
                 jobRecommendations={jobRecommendations}
                 atsScore={atsScore}
+                resumeFile={resumeFile}
                 isLoading={isAnalyzing}
                 processingStage={processingStage}
               />

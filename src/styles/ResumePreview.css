@@ -1,0 +1,189 @@
+/* Resume Preview Component Styles */
+.resume-preview-container {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  width: 280px;
+  max-height: calc(100vh - 100px);
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  z-index: 1000;
+  overflow: hidden;
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.resume-preview-container.expanded {
+  width: 400px;
+  max-height: calc(100vh - 100px);
+}
+
+.resume-preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.resume-preview-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0;
+}
+
+.resume-preview-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.resume-preview-page-count {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.resume-preview-toggle {
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  color: #374151;
+  transition: background-color 0.2s;
+}
+
+.resume-preview-toggle:hover {
+  background: #e5e7eb;
+}
+
+.resume-preview-content {
+  padding: 16px;
+  max-height: calc(100vh - 180px);
+  overflow-y: auto;
+}
+
+.resume-preview-file-info {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.resume-preview-filename {
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  margin: 0 0 4px 0;
+  word-break: break-word;
+}
+
+.resume-preview-filesize {
+  font-size: 12px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.resume-preview-pages {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.resume-preview-page {
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+  background: white;
+}
+
+.resume-preview-page-label {
+  background: #f8fafc;
+  padding: 6px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #6b7280;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.resume-preview-page-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: none;
+}
+
+.resume-preview-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.resume-preview-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #f3f4f6;
+  border-top: 3px solid #6366f1;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 12px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.resume-preview-loading p {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.resume-preview-error {
+  padding: 20px 16px;
+  text-align: center;
+}
+
+.resume-preview-error p {
+  font-size: 13px;
+  color: #dc2626;
+  margin: 0 0 16px 0;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .resume-preview-container {
+    position: static;
+    width: 100%;
+    max-height: none;
+    margin-top: 20px;
+    border-radius: 4px;
+  }
+  
+  .resume-preview-container.expanded {
+    width: 100%;
+  }
+  
+  .resume-preview-content {
+    max-height: 400px;
+  }
+}
+
+/* Hide on very small screens */
+@media (max-width: 640px) {
+  .resume-preview-container {
+    display: none;
+  }
+}
