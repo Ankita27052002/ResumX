@@ -50,7 +50,7 @@ const AnalysisResult = ({ analysis, extractedInfo, jobRecommendations, atsScore,
   if (isLoading) {
     return (
       <div className="analysis-results-container">
-        <div className="flex flex-col items-center justify-center p-10">
+        <div className="analysis-loading-state">
           <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-indigo-600 mb-4"></div>
           <h3 className="text-xl font-semibold text-gray-700">Analyzing your resume...</h3>
           <p className="text-gray-500 mt-2">

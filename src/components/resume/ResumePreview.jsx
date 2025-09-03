@@ -1,16 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
-import * as pdfjsLib from 'pdfjs-dist';
+import React, { useState, useEffect } from 'react';
 import '../../styles/ResumePreview.css';
 
-// Configure PDF.js worker
-pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdfjs/pdf.worker.mjs';
-
 const ResumePreview = ({ file }) => {
-  const [pages, setPages] = useState([]);
+  const [pdfUrl, setPdfUrl] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isExpanded, setIsExpanded] = useState(false);
-  const canvasRefs = useRef([]);
+  const [pageCount, setPageCount] = useState(1);
 
   useEffect(() => {
     if (!file) {
@@ -30,18 +26,23 @@ const ResumePreview = ({ file }) => {
           return;
         }
 
-        const arrayBuffer = await file.arrayBuffer();
-        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+        // Create object URL for the PDF file
+        const url = URL.createObjectURL(file);
+        setPdfUrl(url);
         
-        const pagePromises = [];
-        const numPages = Math.min(pdf.numPages, 10); // Limit to 10 pages for performance
-
-        for (let pageNum = 1; pageNum <= numPages; pageNum++) {
-          pagePromises.push(renderPage(pdf, pageNum));
+        // Try to get page count (optional, fallback to 1 if fails)
+        try {
+          const arrayBuffer = await file.arrayBuffer();
+          const text = new TextDecoder().decode(arrayBuffer);
+          const pageMatches = text.match(/\/Count\s+(\d+)/);
+          if (pageMatches) {
+            setPageCount(parseInt(pageMatches[1]));
+          }
+        } catch (e) {
+          // Fallback to 1 page if count detection fails
+          setPageCount(1);
         }
 
-        const renderedPages = await Promise.all(pagePromises);
-        setPages(renderedPages.filter(page => page !== null));
       } catch (err) {
         console.error('Error loading PDF:', err);
         setError('Failed to load PDF preview');
@@ -51,45 +52,14 @@ const ResumePreview = ({ file }) => {
     };
 
     loadPDF();
-  }, [file]);
 
-  const renderPage = async (pdf, pageNumber) => {
-    try {
-      const page = await pdf.getPage(pageNumber);
-      const scale = 0.3; // Small scale for preview
-      const viewport = page.getViewport({ scale });
-
-      return {
-        pageNumber,
-        page,
-        viewport,
-        width: viewport.width,
-        height: viewport.height,
-      };
-    } catch (err) {
-      console.error(`Error preparing page ${pageNumber}:`, err);
-      return null;
-    }
-  };
-
-  const renderCanvas = async (canvas, pageData) => {
-    if (!canvas || !pageData) return;
-    
-    const context = canvas.getContext('2d');
-    canvas.height = pageData.viewport.height;
-    canvas.width = pageData.viewport.width;
-
-    const renderContext = {
-      canvasContext: context,
-      viewport: pageData.viewport,
+    // Cleanup function to revoke object URL
+    return () => {
+      if (pdfUrl) {
+        URL.revokeObjectURL(pdfUrl);
+      }
     };
-
-    try {
-      await pageData.page.render(renderContext).promise;
-    } catch (err) {
-      console.error('Error rendering canvas:', err);
-    }
-  };
+  }, [file]);
 
   const toggleExpanded = () => {
     setIsExpanded(!isExpanded);
@@ -138,7 +108,7 @@ const ResumePreview = ({ file }) => {
         <h3 className="resume-preview-title">Resume Preview</h3>
         <div className="resume-preview-controls">
           <span className="resume-preview-page-count">
-            {pages.length} page{pages.length !== 1 ? 's' : ''}
+            {pageCount} page{pageCount !== 1 ? 's' : ''}
           </span>
           <button
             className="resume-preview-toggle"
@@ -158,25 +128,20 @@ const ResumePreview = ({ file }) => {
           </p>
         </div>
         
-        <div className="resume-preview-pages">
-          {pages.map((pageData, index) => (
-            pageData && (
-              <div key={index} className="resume-preview-page">
-                <div className="resume-preview-page-label">
-                  Page {pageData.pageNumber}
-                </div>
-                <canvas
-                  ref={(canvas) => {
-                    if (canvas && pageData) {
-                      renderCanvas(canvas, pageData);
-                    }
-                  }}
-                  className="resume-preview-page-canvas"
-                  style={{ maxWidth: '100%', height: 'auto' }}
-                />
-              </div>
-            )
-          ))}
+        <div className="resume-preview-pdf">
+          {pdfUrl && (
+            <iframe
+              src={pdfUrl}
+              className="resume-preview-iframe"
+              title="Resume Preview"
+              style={{
+                width: '100%',
+                height: isExpanded ? '500px' : '300px',
+                border: '1px solid #e5e7eb',
+                borderRadius: '4px'
+              }}
+            />
+          )}
         </div>
       </div>
     </div>

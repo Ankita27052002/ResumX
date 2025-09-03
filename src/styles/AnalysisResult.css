@@ -2,19 +2,31 @@
 
 /* Main Container - Center aligned with full width */
 .analysis-results-container {
+  position: relative !important;
   width: 100% !important;
   max-width: 1200px !important;
   margin: 0 auto !important;
   padding: 2rem 1rem !important;
+  min-height: 100vh !important;
+}
+
+/* Loading State */
+.analysis-loading-state {
   display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
   justify-content: center !important;
-  align-items: flex-start !important;
+  padding: 2.5rem !important;
+  margin: 0 auto !important;
+  max-width: 900px !important;
+  text-align: center !important;
 }
 
 /* Results Card */
 .analysis-results-card {
   width: 100% !important;
   max-width: 900px !important;
+  margin: 0 auto !important;
   background: #ffffff !important;
   border-radius: 16px !important;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
