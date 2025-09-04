@@ -99,7 +99,7 @@ const HomePage = () => {
                   <span className="w-12 h-12 bg-indigo-600 rounded-full text-white text-lg font-bold step-number">1</span>
                   <div className="step-content">
                     <h3 className="text-lg font-semibold text-gray-900 step-title">Upload Resume</h3>
-                    <p className="text-gray-600 step-description">Upload your resume in PDF, DOCX, or TXT format for instant analysis.</p>
+                    <p className="text-gray-600 step-description">Upload your resume in PDF or TXT format for instant analysis.</p>
                   </div>
                 </div>
                 <div className="how-it-works-step">
