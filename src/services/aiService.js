@@ -1,51 +1,54 @@
 import axios from 'axios';
 import { cleanResumeText } from '@utils/pdfUtils';
 
-// Create an axios instance for OpenRouter API
-const openRouterAPI = axios.create({
-  baseURL: 'https://openrouter.ai/api/v1',
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
-  },
-});
+// Google Gemini API configuration
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
-// Helper function to handle rate limiting and retries
-const makeAPICallWithRetry = async (apiCall, maxRetries = 3, baseDelay = 2000) => {
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    try {
-      return await apiCall();
-    } catch (error) {
-      if (error.response?.status === 429 && attempt < maxRetries) {
-        // Rate limited - wait with exponential backoff
-        const delay = baseDelay * Math.pow(2, attempt - 1);
-        console.warn(`Rate limited. Retrying in ${delay}ms... (Attempt ${attempt}/${maxRetries})`);
-        await new Promise(resolve => setTimeout(resolve, delay));
-        continue;
+// Helper function to call Gemini API
+const callGeminiAPI = async (prompt, systemInstruction = '') => {
+  try {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+    
+    const response = await axios.post(
+      url,
+      {
+        contents: [
+          {
+            parts: [
+              {
+                text: systemInstruction ? `${systemInstruction}\n\n${prompt}` : prompt
+              }
+            ]
+          }
+        ],
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 8000,
+        }
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        }
       }
-      
-      // If it's not a rate limit error or we've exhausted retries, throw the error
-      if (error.response?.status === 429) {
-        throw new Error('Service is currently busy. Please try again in a few minutes.');
-      }
-      
-      throw error;
+    );
+
+    if (!response.data.candidates || !response.data.candidates[0]) {
+      throw new Error('Invalid response from Gemini API');
     }
+
+    return response.data.candidates[0].content.parts[0].text;
+  } catch (error) {
+    console.error('Gemini API Error:', error.response?.data || error.message);
+    throw new Error(`AI Service Error: ${error.response?.data?.error?.message || error.message}`);
   }
 };
 
 export const analyzeResume = async resumeText => {
   try {
-    // Clean and validate the text before sending to API
     const cleanedText = cleanResumeText(resumeText);
 
-    const response = await makeAPICallWithRetry(async () => {
-      return await openRouterAPI.post('/chat/completions', {
-        model: 'deepseek/deepseek-r1:free', // Using deepseek via OpenRouter
-        messages: [
-          {
-            role: 'system',
-            content: `You are an expert resume analyzer and career coach. 
+    const systemInstruction = `You are an expert resume analyzer and career coach. 
             Analyze the provided resume and give constructive feedback in the following categories:
             1. Overall Structure and Formatting
             2. Professional Summary/Objective
@@ -59,19 +62,10 @@ export const analyzeResume = async resumeText => {
             10. Suggestions for Improvement
             
             Format your response with clear headings for each section. Be specific with examples from the resume.
-            Provide actionable feedback that can help improve the resume immediately.`,
-          },
-          {
-            role: 'user',
-            content: cleanedText,
-          },
-        ],
-        temperature: 0.7,
-        max_tokens: 2500,
-      });
-    });
+            Provide actionable feedback that can help improve the resume immediately.`;
 
-    return response.data.choices[0].message.content;
+    const result = await callGeminiAPI(cleanedText, systemInstruction);
+    return result;
   } catch (error) {
     console.error('Error analyzing resume:', error);
     throw new Error(error.message || 'Failed to analyze resume. Please try again later.');
@@ -80,16 +74,9 @@ export const analyzeResume = async resumeText => {
 
 export const extractResumeInfo = async resumeText => {
   try {
-    // Clean and validate the text before sending to API
     const cleanedText = cleanResumeText(resumeText);
 
-    const response = await makeAPICallWithRetry(async () => {
-      return await openRouterAPI.post('/chat/completions', {
-        model: 'deepseek/deepseek-r1:free', // Using deepseek via OpenRouter
-        messages: [
-        {
-          role: 'system',
-          content: `Extract and organize the following key information from the resume in JSON format:
+    const systemInstruction = `Extract and organize the following key information from the resume in JSON format:
           {
             "contact": {
               "name": "",
@@ -130,26 +117,23 @@ export const extractResumeInfo = async resumeText => {
             "certifications": []
           }
           
-          Return only the JSON with no additional text.`,
-        },
-        {
-          role: 'user',
-          content: cleanedText,
-        },
-        ],
-        temperature: 0.1,
-        max_tokens: 2000,
-        response_format: { type: 'json_object' },
-      });
-    });
+          Return only the JSON with no additional text.`;
+
+    const result = await callGeminiAPI(cleanedText, systemInstruction);
 
     try {
-      return JSON.parse(response.data.choices[0].message.content);
+      // Clean the response to extract JSON
+      let jsonText = result.trim();
+      if (jsonText.startsWith('```json')) {
+        jsonText = jsonText.replace(/```json\n?/g, '').replace(/```\n?/g, '');
+      } else if (jsonText.startsWith('```')) {
+        jsonText = jsonText.replace(/```\n?/g, '');
+      }
+      return JSON.parse(jsonText.trim());
     } catch (parseError) {
       console.error('Error parsing JSON response:', parseError);
-      console.log('Raw response:', response.data.choices[0].message.content);
+      console.log('Raw response:', result);
       
-      // Return a fallback structure for extractResumeInfo
       return {
         contact: {
           name: "Information not extracted",
@@ -170,7 +154,6 @@ export const extractResumeInfo = async resumeText => {
   } catch (error) {
     console.error('Error extracting resume info:', error);
     
-    // Return fallback structure instead of throwing
     return {
       contact: {
         name: "Information not available",
@@ -190,13 +173,7 @@ export const extractResumeInfo = async resumeText => {
   }
 };export const generateJobRecommendations = async resumeInfo => {
   try {
-    const response = await makeAPICallWithRetry(async () => {
-      return await openRouterAPI.post('/chat/completions', {
-        model: 'deepseek/deepseek-r1:free', // Using GPT-4o via OpenRouter
-        messages: [
-          {
-            role: 'system',
-            content: `Based on the provided resume information, recommend suitable job roles, industries, and potential career paths.
+    const systemInstruction = `Based on the provided resume information, recommend suitable job roles, industries, and potential career paths.
             Format your response in JSON as follows:
             {
               "recommendedRoles": [
@@ -222,26 +199,22 @@ export const extractResumeInfo = async resumeText => {
                   "nextSteps": []
                 }
               ]
-            }`,
-          },
-          {
-            role: 'user',
-            content: JSON.stringify(resumeInfo),
-          },
-        ],
-        temperature: 0.7,
-        max_tokens: 2000,
-        response_format: { type: 'json_object' },
-      });
-    });
+            }`;
+
+    const result = await callGeminiAPI(JSON.stringify(resumeInfo), systemInstruction);
 
     try {
-      return JSON.parse(response.data.choices[0].message.content);
+      let jsonText = result.trim();
+      if (jsonText.startsWith('```json')) {
+        jsonText = jsonText.replace(/```json\n?/g, '').replace(/```\n?/g, '');
+      } else if (jsonText.startsWith('```')) {
+        jsonText = jsonText.replace(/```\n?/g, '');
+      }
+      return JSON.parse(jsonText.trim());
     } catch (parseError) {
       console.error('Error parsing job recommendations JSON:', parseError);
-      console.log('Raw response:', response.data.choices[0].message.content);
+      console.log('Raw response:', result);
       
-      // Return fallback structure for job recommendations
       return {
         recommendedRoles: [
           {
@@ -271,7 +244,6 @@ export const extractResumeInfo = async resumeText => {
   } catch (error) {
     console.error('Error generating job recommendations:', error);
     
-    // Return fallback structure instead of throwing
     return {
       recommendedRoles: [
         {
@@ -302,16 +274,9 @@ export const extractResumeInfo = async resumeText => {
 
 export const calculateATSScore = async resumeText => {
   try {
-    // Clean and validate the text before sending to API
     const cleanedText = cleanResumeText(resumeText);
 
-    const response = await makeAPICallWithRetry(async () => {
-      return await openRouterAPI.post('/chat/completions', {
-        model: 'deepseek/deepseek-r1:free', // Using deepseek via OpenRouter
-        messages: [
-        {
-          role: 'system',
-          content: `You are an ATS (Applicant Tracking System) expert. Analyze the provided resume and calculate detailed ATS scores.
+    const systemInstruction = `You are an ATS (Applicant Tracking System) expert. Analyze the provided resume and calculate detailed ATS scores.
 
           Provide your response in the following JSON format:
           {
@@ -359,24 +324,18 @@ export const calculateATSScore = async resumeText => {
             ]
           }
 
-          Score each category from 0-100 based on ATS optimization best practices. The overall score should be the weighted average of all categories.`,
-        },
-        {
-          role: 'user',
-          content: cleanedText,
-        },
-        ],
-        temperature: 0.3,
-        max_tokens: 1500,
-        response_format: { type: 'json_object' },
-      });
-    });
+          Score each category from 0-100 based on ATS optimization best practices. The overall score should be the weighted average of all categories.`;
 
-    const responseContent = response.data.choices[0].message.content;
+    const result = await callGeminiAPI(cleanedText, systemInstruction);
     
-    // Try to parse JSON response, fallback to default structure if parsing fails
     try {
-      return JSON.parse(responseContent);
+      let jsonText = result.trim();
+      if (jsonText.startsWith('```json')) {
+        jsonText = jsonText.replace(/```json\n?/g, '').replace(/```\n?/g, '');
+      } else if (jsonText.startsWith('```')) {
+        jsonText = jsonText.replace(/```\n?/g, '');
+      }
+      return JSON.parse(jsonText.trim());
     } catch (parseError) {
       console.warn('Failed to parse ATS score JSON response, using fallback');
       return {
@@ -397,7 +356,6 @@ export const calculateATSScore = async resumeText => {
   } catch (error) {
     console.error('Error calculating ATS score:', error);
     
-    // Return fallback ATS score instead of throwing
     return {
       overallScore: 60,
       categories: {

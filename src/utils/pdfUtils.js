@@ -1,4 +1,8 @@
 import * as pdfjs from 'pdfjs-dist';
+
+// Configure PDF.js worker
+pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.mjs`;
+
 /**
  * Extract text from a PDF file
  * @param {File|Blob|ArrayBuffer} pdfFile - The PDF file to extract text from
